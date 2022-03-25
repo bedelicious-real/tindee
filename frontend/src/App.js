@@ -1,11 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from './pages/Login/Login';
+import EditProfile from './pages/EditProfile/EditProfile';
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <Login />
+      
+      <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login/>} />
+            <Route path="/editprofile" element={<EditProfile/>} />
+          </Routes>
+        </BrowserRouter>
     </div>
   );
 }
