@@ -9,10 +9,6 @@ user = Blueprint('user', __name__)
 SALT_ROUNDS = int(os.environ.get('SALT_ROUNDS'))
 JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
 
-@user.route('/', methods=['GET'])
-def test():
-    return 'Hahaha'
-
 @user.route('/', methods=['POST'])
 def create_new_user():
     data = request.get_json()
@@ -25,15 +21,17 @@ def create_new_user():
     raw_pwd = data['pwd'].encode()
     hashed_pwd = bcrypt.hashpw(raw_pwd, bcrypt.gensalt(rounds=SALT_ROUNDS))
     
-    print(email, first_name, last_name, raw_pwd)
-    print(hashed_pwd)
-
     try:
-        TindeeUser.insertUser(email, first_name, last_name, hashed_pwd, None)
-        return 'OKKKK', 200
+        uuid = TindeeUser.insertUser(email, first_name, last_name, hashed_pwd, None)
+        return jwt.encode(
+            {
+                'uuid': uuid,
+                'email': email
+            }, 
+            JWT_SECRET_KEY,
+            algorithm='HS256'
+        )
     except Exception as err:
-        print(str(err))
-        return 'We\'re not OK', 500 
         if str(err) == 'Existed':
             return 'User already existed', 400
         if str(err) == 'Other':
@@ -54,7 +52,7 @@ def login():
         if uuid is None:
             return 'User not found', 404
         hashed_pwd = TindeeUser.searchHashpass(uuid)
-        if False and not bcrypt.checkpw(raw_pwd, hashed_pwd):
+        if not bcrypt.checkpw(raw_pwd, hashed_pwd):
             return 'Wrong password', 400
         
         return jwt.encode(

@@ -37,7 +37,7 @@ class TindeeUser(db.Model):
         db.session.add(newUser)
         try:
             db.session.commit()
-            return True
+            return TindeeUser.searchUUID(email)
         except IntegrityError as ie:
             print(ie)
             raise Exception('Existed')
