@@ -6,7 +6,7 @@ from database.db import TindeeUser
 
 user = Blueprint('user', __name__)
 
-SALT_ROUNDS = os.environ.get('SALT_ROUNDS')
+SALT_ROUNDS = int(os.environ.get('SALT_ROUNDS'))
 JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
 
 @user.route('/', methods=['GET'])
@@ -22,10 +22,22 @@ def create_new_user():
     email = data['email']
     first_name = data['first']
     last_name = data['last']
-    raw_pwd = data['pwd']
+    raw_pwd = data['pwd'].encode()
     hashed_pwd = bcrypt.hashpw(raw_pwd, bcrypt.gensalt(rounds=SALT_ROUNDS))
     
-    return 'Ulatr', 200
+    print(email, first_name, last_name, raw_pwd)
+    print(hashed_pwd)
+
+    try:
+        TindeeUser.insertUser(email, first_name, last_name, hashed_pwd, None)
+        return 'OKKKK', 200
+    except Exception as err:
+        print(str(err))
+        return 'We\'re not OK', 500 
+        if str(err) == 'Existed':
+            return 'User already existed', 400
+        if str(err) == 'Other':
+            return 'We\'re not OK', 500 
 
 
 @user.route('/session', methods=['POST'])
