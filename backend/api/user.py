@@ -53,5 +53,6 @@ def login():
             JWT_SECRET_KEY,
             algorithm='HS256'
         )
-    except:
+    except Exception as err:
+        print(err)
         return 'We\'re not OK', 500

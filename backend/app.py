@@ -7,3 +7,5 @@ app.config.from_object('config.Config')
 app.register_blueprint(user, url_prefix='/user')
 
 db.init_app(app)
+app.app_context().push()
+# db.create_all()
