@@ -14,8 +14,10 @@ class TindeeUser(db.Model):
     hashpass = db.Column(db.String(50), nullable=False)
     image_url = db.Column(db.String(50), nullable=False)
 
+    @staticmethod
     def searchHashpass(id):
         return TindeeUser.query.filter_by(uuid=id).first().hashpass
 
+    @staticmethod
     def searchUUID(findEmail):
         return TindeeUser.query.filter_by(email=findEmail).first().uuid
