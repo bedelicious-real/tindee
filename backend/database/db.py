@@ -16,3 +16,6 @@ class TindeeUser(db.Model):
 
     def searchHashpass(id):
         return TindeeUser.query.filter_by(uuid=id).first().hashpass
+
+    def searchUUID(findEmail):
+        return TindeeUser.query.filter_by(email=findEmail).first().uuid
