@@ -24,12 +24,13 @@ class TindeeUser(db.Model):
 
     @staticmethod
     def searchHashpass(id):
-        print(TindeeUser.query.first())
-        return TindeeUser.query.filter_by(uuid=id).first().hashpass
+        user = TindeeUser.query.filter_by(uuid=id).first()
+        return None if user == None else user.hashpass
 
     @staticmethod
     def searchUUID(findEmail):
-        return TindeeUser.query.filter_by(email=findEmail).first().uuid
+        user = TindeeUser.query.filter_by(email=findEmail).first()
+        return None if user == None else str(user.uuid)
 
     @staticmethod
     def insertUser(email, first_name, last_name, hashpass, image_url):
@@ -37,6 +38,7 @@ class TindeeUser(db.Model):
         db.session.add(newUser)
         try:
             db.session.commit()
+            print(TindeeUser.searchUUID(email))
             return TindeeUser.searchUUID(email)
         except IntegrityError as ie:
             print(ie)
