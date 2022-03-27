@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { UserInfo } from '../../components/UserProfile/index.js';
+import { MentorProfile } from '../../components/UserProfile/index.js';
 import './EditProfile.css';
 
 class EditProfile extends Component {
@@ -8,7 +8,7 @@ class EditProfile extends Component {
         return (
             <div>
                 hELLO
-                <UserInfo />
+                <MentorProfile />
             </div>
         );
     }
