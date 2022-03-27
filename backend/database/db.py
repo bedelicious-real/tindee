@@ -16,8 +16,15 @@ class TindeeUser(db.Model):
 
     @staticmethod
     def searchHashpass(id):
+        print(TindeeUser.query.first())
         return TindeeUser.query.filter_by(uuid=id).first().hashpass
 
     @staticmethod
     def searchUUID(findEmail):
         return TindeeUser.query.filter_by(email=findEmail).first().uuid
+
+    @staticmethod
+    def insertUser(email, first_name, last_name, hashpass, image_url):
+        newUser = TindeeUser(email, first_name, last_name, hashpass, image_url)
+        db.session.add(newUser)
+        db.session.commit()
