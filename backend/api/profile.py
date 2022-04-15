@@ -1,15 +1,19 @@
 from flask import Blueprint, request
 from middleware_auth import token_required
+from gcp import upload_to_gcp
 
 profile = Blueprint('profile', __name__)
 
 def parse_image_from_request(req):
-    return None
+    f = open('/Users/trungnguyen/Downloads/img-0001.png', 'rb')
+    return f.read()
 
 @profile.route('/avatar', methods=['POST'])
 @token_required
 def upload_avatar(uuid, email):
-    image = parse_image_from_request(request)
+    content = parse_image_from_request(request)
+    url = upload_to_gcp(content)
+    return 'uWu', 200
 
 
 @profile.route('/', methods=['POST'])
