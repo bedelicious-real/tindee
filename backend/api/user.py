@@ -1,5 +1,6 @@
 from datetime import timezone
 import datetime
+from dotenv import load_dotenv
 from flask import Blueprint, request, current_app
 import bcrypt
 import os
@@ -8,6 +9,7 @@ from database.db import TindeeUser
 
 user = Blueprint('user', __name__)
 
+load_dotenv()
 SALT_ROUNDS = int(os.environ.get('SALT_ROUNDS'))
 JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
 
