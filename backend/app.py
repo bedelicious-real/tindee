@@ -1,10 +1,13 @@
+from dotenv import load_dotenv
 from flask import Flask
 from api.user import user
+from api.profile import profile
 from database.db import db
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
 app.register_blueprint(user, url_prefix='/user')
+app.register_blueprint(profile, url_prefix='/profile')
 
 db.init_app(app)
 app.app_context().push()

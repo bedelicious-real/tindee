@@ -1,7 +1,10 @@
+from dotenv import load_dotenv
 from flask import Blueprint, request
-from middleware_auth import token_required
-from gcp import upload_to_gcp
+from api.middleware_auth import token_required
+from api.gcp import upload_to_gcp
+from database.db import TindeeUser, Mentee, Mentor
 
+load_dotenv()
 profile = Blueprint('profile', __name__)
 
 def parse_image_from_request(req):
@@ -13,6 +16,12 @@ def parse_image_from_request(req):
 def upload_avatar(uuid, email):
     content = parse_image_from_request(request)
     url = upload_to_gcp(content)
+    print(uuid, email, url)
+    try:
+        TindeeUser.updateUser(id=uuid, url=url)
+    except Exception as err:
+        print(err)
+        return 'Khok', 500
     return 'uWu', 200
 
 

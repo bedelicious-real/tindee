@@ -1,5 +1,6 @@
 from datetime import timezone
 import datetime
+from dotenv import load_dotenv
 from flask import Blueprint, request, current_app
 import bcrypt
 import os
@@ -7,6 +8,7 @@ import jwt
 from database.db import TindeeUser
 
 user = Blueprint('user', __name__)
+load_dotenv()
 
 SALT_ROUNDS = int(os.environ.get('SALT_ROUNDS'))
 JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
@@ -22,12 +24,14 @@ def create_new_user():
     first_name = data['first']
     last_name = data['last']
     raw_pwd = data['pwd'].encode()
-    hashed_pwd = bcrypt.hashpw(
-        raw_pwd, bcrypt.gensalt(rounds=SALT_ROUNDS)).decode()
 
     try:
+        hashed_pwd = bcrypt.hashpw(
+            raw_pwd, bcrypt.gensalt(rounds=SALT_ROUNDS)).decode()
+        print(hashed_pwd)
         uuid = TindeeUser.insertUser(
             email, first_name, last_name, hashed_pwd, None)
+        print(uuid)
         return jwt.encode(
             {
                 'uuid': uuid,
@@ -38,6 +42,7 @@ def create_new_user():
             algorithm='HS256'
         )
     except Exception as err:
+        print(err)
         if str(err) == 'Existed':
             return 'User already existed', 400
         if str(err) == 'Other':
