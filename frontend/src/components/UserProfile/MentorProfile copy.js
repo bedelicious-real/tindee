@@ -21,8 +21,6 @@ const onFinish = (values) => {
     console.log(JSON.stringify(values));
 };
 
-
-
 const dummyRequest = ({ file, onSuccess }) => {
   setTimeout(() => {
     onSuccess("ok");
@@ -40,8 +38,6 @@ const beforeUpload = (file) => {
   }
   return isJpgOrPng && isLt2M;
 }
-
-
 
 class MentorProfile extends Component {
   state = {
@@ -66,23 +62,6 @@ class MentorProfile extends Component {
         nextState.selectedFileList = [];
     }
     this.setState(() => nextState);
-  };
-  
-  onSubmit = file => {
-    const formData = new FormData();
-    formData.append("file", file);
-    console.log('Received values of form: ', file);
-    fetch(`https://localhost:3000/api/image`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
-      body: formData,
-
-    })
-    .then(res => {
-      console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
-    })
   };
   
 
@@ -203,7 +182,6 @@ class MentorProfile extends Component {
         >
           <Button>Choose File</Button>
     </Upload>
-    <Button onClick={() => this.onSubmit(this.state.selectedFile)}> Submit </Button>
 
 
 
