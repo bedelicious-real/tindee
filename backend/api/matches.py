@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from flask import Blueprint
+from flask import Blueprint, request
 from api.middleware_auth import token_required
 import os
 
@@ -13,12 +13,14 @@ JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
 @matches.route('/mentors', methods=['GET'])
 @token_required
 def get_mentors(uuid, email):
+    is_full = request.args.get('full', default=False, type=bool)
     pass
 
 
 @matches.route('/mentees', methods=['GET'])
 @token_required
 def get_mentees(uuid, email):
+    is_full = request.args.get('full', default=False, type=bool)
     pass
 
 
