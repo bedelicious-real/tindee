@@ -11,3 +11,14 @@ def parse_image_from_request(req):
 def upload_avatar(uuid, email):
     image = parse_image_from_request(request)
 
+
+@profile.route('/', methods=['POST'])
+@token_required
+def upsert_profile(uuid, email):
+    pass
+
+
+@profile.route('/', methods=['GET'])
+@token_required
+def get_profile(uuid, email):
+    pass
