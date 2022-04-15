@@ -11,6 +11,7 @@ db = SQLAlchemy()
 
 
 class TindeeUser(db.Model):
+    __tablename__ = 'tindeeUser'
     uuid = db.Column(UUID(as_uuid=True), primary_key=True, default=uid.uuid4)
     email = db.Column(db.String(50), unique=True, nullable=False)
     first_name = db.Column(db.String(50), nullable=False)
@@ -42,7 +43,9 @@ class TindeeUser(db.Model):
     @staticmethod
     def insertUser(email, first_name, last_name, hashpass, image_url):
         newUser = TindeeUser(email, first_name, last_name, hashpass, image_url)
+        print('hoho')
         db.session.add(newUser)
+        print('cac')
         try:
             db.session.commit()
             print(TindeeUser.searchUUID(email))
@@ -55,7 +58,7 @@ class TindeeUser(db.Model):
             raise Exception('Other')
 
     @staticmethod
-    def updateUser(id, first_name, last_name, url):
+    def updateUser(id, first_name=None, last_name=None, url=None):
         user = TindeeUser.query.filter_by(uuid=id).first()
         if (user is None):
             raise Exception('Nonexistent')
@@ -85,15 +88,16 @@ class TindeeUser(db.Model):
 
 
 class Mentor(db.Model):
+    __tablename__ = 'mentor'
     email = db.Column(db.String(50), ForeignKey(
-        'user.email'), primary_key=True, nullable=False)
+        'tindeeUser.email'), primary_key=True, nullable=False)
     exp_years = db.Column(db.Integer, nullable=False)
     offers = db.Column(db.ARRAY(db.String(100)), nullable=False)
     concentration = db.Column(db.ARRAY(db.String(100)), nullable=False)
     company_id = db.Column(db.Integer, nullable=False)
 
     # Foreign key to TindeeUser
-    user = db.relationship('User', back_populates='mentor')
+    user = db.relationship('TindeeUser', back_populates='mentor')
 
     def __init__(self, email, exp_years, offers, concentration, company_id):
         self.email = email
@@ -146,15 +150,16 @@ class Mentor(db.Model):
 
 
 class Mentee(db.Model):
+    __tablename__ = 'mentee'
     email = db.Column(db.String(50), ForeignKey(
-        'user.email'), primary_key=True, nullable=False)
-    organization = db.Column(db.string(100), nullable=False)
-    full_time_status = db.Column(db.string(100), nullable=False)
-    edu_level = db.Column(db.string(100), nullable=False)
-    description = db.Column(db.string(1000), nullable=False)
+        'tindeeUser.email'), primary_key=True, nullable=False)
+    organization = db.Column(db.String(100), nullable=False)
+    full_time_status = db.Column(db.String(100), nullable=False)
+    edu_level = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
 
     # Foreign key to TindeeUser
-    user = db.relationship('User', back_populates='mentee')
+    user = db.relationship('TindeeUser', back_populates='mentee')
 
     def __init__(self, email, organization, full_time_status, edu_level, description):
         self.email = email
