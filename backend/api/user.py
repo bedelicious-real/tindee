@@ -1,3 +1,5 @@
+from datetime import timezone
+import datetime
 from flask import Blueprint, request, current_app
 import bcrypt
 import os
@@ -29,7 +31,8 @@ def create_new_user():
         return jwt.encode(
             {
                 'uuid': uuid,
-                'email': email
+                'email': email,
+                'exp': datetime.datetime.now(tz=timezone.utc) + datetime.timedelta(hours=5)
             },
             JWT_SECRET_KEY,
             algorithm='HS256'
@@ -61,7 +64,8 @@ def login():
         return jwt.encode(
             {
                 'uuid': uuid,
-                'email': email
+                'email': email,
+                'exp': datetime.datetime.now(tz=timezone.utc) + datetime.timedelta(hours=5)
             },
             JWT_SECRET_KEY,
             algorithm='HS256'
