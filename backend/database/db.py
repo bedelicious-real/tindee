@@ -17,7 +17,10 @@ class TindeeUser(db.Model):
     last_name = db.Column(db.String(50), nullable=False)
     hashpass = db.Column(db.String(500), nullable=False)
     image_url = db.Column(db.String(500))
+    # relationship to mentor
     mentor = db.relationship('Mentor', back_populates='user', uselist=False)
+    # relationship to mentee
+    mentee = db.relationship('Mentee', back_populates='user', uselist=False)
 
     def __init__(self, email, first_name, last_name, hashpass, url):
         self.email = email
@@ -101,3 +104,47 @@ class Mentor(db.Model):
                 'image_url': mentor.image_url, 'exp_years': mentor.exp_years,
                 'offers': mentor.offers, 'concentration': mentor.concentration,
                 'company_id': mentor.company_id}
+
+# Mentee user of Tindee
+
+
+class Mentee(db.Model):
+    email = db.Column(db.String(50), ForeignKey(
+        'user.email'), primary_key=True, nullable=False)
+    organization = db.Column(db.string(100), nullable=False)
+    full_time_status = db.Column(db.string(100), nullable=False)
+    edu_level = db.Column(db.string(100), nullable=False)
+    description = db.Column(db.string(1000), nullable=False)
+
+    # Foreign key to TindeeUser
+    user = db.relationship('User', back_populates='mentee')
+
+    def __init__(self, email, organization, full_time_status, edu_level, description):
+        self.email = email
+        self.organization = organization
+        self.full_time_status = full_time_status
+        self.edu_level = edu_level
+        self.description = description
+
+    @staticmethod
+    def insertMentee(email, organization, full_time_status, edu_level, description):
+        newMentee = Mentee(email, organization,
+                           full_time_status, edu_level, description)
+        db.session.add(newMentee)
+        try:
+            db.session.commit()
+            return email
+        except IntegrityError as integrity:
+            raise Exception('Integrity Vioalation')
+        except Exception as e:
+            raise Exception('Other')
+
+    @staticmethod
+    def menteeInfo(menteeEmail):
+        mentee = Mentee.query.filter_by(email=menteeEmail).first()
+        if (mentee is None):
+            raise Exception('Nonexistent')
+        return {'first_name': mentee.first_name, 'last_name': mentee.last_name,
+                'image_url': mentee.image_url, 'organization': mentee.organization,
+                'full_time_status': mentee.full_time_status, 'edu_level': mentee.edu_level,
+                'description': mentee.description}
