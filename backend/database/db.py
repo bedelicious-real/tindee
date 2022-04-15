@@ -46,3 +46,11 @@ class TindeeUser(db.Model):
         except Exception as e:
             print(e)
             raise Exception('Other')
+
+    @staticmethod
+    def updateIMGURL(id, url):
+        user = TindeeUser.query.filter_by(uuid=id).first()
+        if (user is None):
+            raise Exception('Nonexistent')
+        user.image_url = url
+        db.session.commit()
