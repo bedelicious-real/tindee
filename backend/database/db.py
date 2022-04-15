@@ -59,9 +59,12 @@ class TindeeUser(db.Model):
         user = TindeeUser.query.filter_by(uuid=id).first()
         if (user is None):
             raise Exception('Nonexistent')
-        user.image_url = url
-        user.first_name = first_name
-        user.last_name = last_name
+        if (url is not None):
+            user.image_url = url
+        if (first_name is not None):
+            user.first_name = first_name
+        if (last_name is not None):
+            user.last_name = last_name
         try:
             db.session.commit()
             return id
@@ -69,6 +72,14 @@ class TindeeUser(db.Model):
             raise Exception('Integrity Vioalation')
         except Exception as e:
             raise Exception('Other')
+
+    @staticmethod
+    def userInfo(id):
+        user = TindeeUser.query.filter_by(uuid=id).first()
+        if (user is None):
+            raise Exception('Nonexistent')
+        return {'email': user.email, 'first_name': user.first_name,
+                'last_name': user.last_name, 'image_url': user.image_url}
 
 # Mentor user of Tindee
 
