@@ -55,12 +55,20 @@ class TindeeUser(db.Model):
             raise Exception('Other')
 
     @staticmethod
-    def updateIMGURL(id, url):
+    def updateUser(id, first_name, last_name, url):
         user = TindeeUser.query.filter_by(uuid=id).first()
         if (user is None):
             raise Exception('Nonexistent')
         user.image_url = url
-        db.session.commit()
+        user.first_name = first_name
+        user.last_name = last_name
+        try:
+            db.session.commit()
+            return id
+        except IntegrityError as integrity:
+            raise Exception('Integrity Vioalation')
+        except Exception as e:
+            raise Exception('Other')
 
 # Mentor user of Tindee
 
@@ -94,6 +102,24 @@ class Mentor(db.Model):
             raise Exception('Integrity Vioalation')
         except Exception as e:
             raise Exception('Other')
+
+    @staticmethod
+    def updateMentor(mentorEmail, exp_years, offers, concentration, company_id):
+        mentor = Mentor.query.filter_by(email=mentorEmail).first()
+        if (mentor is None):
+            return Mentor.insertMentor(mentorEmail, exp_years, offers, concentration, company_id)
+        else:
+            mentor.exp_years = exp_years
+            mentor.offers = offers
+            mentor.concentration = concentration
+            mentor.company_id = company_id
+            try:
+                db.session.commit()
+                return mentorEmail
+            except IntegrityError as integrity:
+                raise Exception('Integrity Vioalation')
+            except Exception as e:
+                raise Exception('Other')
 
     @staticmethod
     def mentorInfo(mentorEmail):
@@ -138,6 +164,24 @@ class Mentee(db.Model):
             raise Exception('Integrity Vioalation')
         except Exception as e:
             raise Exception('Other')
+
+    @staticmethod
+    def updateMentee(menteeEmail, organization, full_time_status, edu_level, description):
+        mentee = Mentee.query.filter_by(email=menteeEmail).first()
+        if (mentee is None):
+            return Mentee.insertMentee(menteeEmail, organization, full_time_status, edu_level, description)
+        else:
+            mentee.organization = organization
+            mentee.full_time_status = full_time_status
+            mentee.edu_level = edu_level
+            mentee.description = description
+            try:
+                db.session.commit()
+                return menteeEmail
+            except IntegrityError as integrity:
+                raise Exception('Integrity Vioalation')
+            except Exception as e:
+                raise Exception('Other')
 
     @staticmethod
     def menteeInfo(menteeEmail):
