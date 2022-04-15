@@ -185,19 +185,6 @@ class MentorProfile extends Component {
           <Button>Choose File</Button>
     </Upload>
 
-
-    <Form.Item
-        name="upload"
-        label="Upload"
-        valuePropName="fileList"
-        getValueFromEvent={this.state.selectedFileList}
-        extra="longgggggggggggggggggggggggggggggggggg"
-      >
-        <Upload name="logo" action="/upload.do" listType="picture">
-          <Button>Click to upload</Button>
-        </Upload>
-      </Form.Item>
-
         <pre>{JSON.stringify(this.state, null, 2)}</pre>
 
         </div>

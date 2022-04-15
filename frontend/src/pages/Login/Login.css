@@ -2,11 +2,12 @@
 
 .login_page {
     background-image: linear-gradient(#FF655B, #FF5864, #FD297B);
-    min-height: 600px;
+    min-height: 800px;
     color: white;
-    font-weight: 600;
+    font-weight: 500;
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
+    text-align: center;
 }
 
 .login_logo {
@@ -24,12 +25,22 @@
 }
 
 .big_button {
-    margin: 20px;
+    margin: 20px 0;
     font-weight: 800;
-    width: 300px;
+    width: 400px;
 }
 
+.left {
+    font-weight: 700;
+    text-align: left;
+}
 .extra_bold {
     font-weight: 900;
     font-size: 20px;
+}
+
+
+.login_auth_buttons {
+    width: 400px;
+    margin: auto;
 }
