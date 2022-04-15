@@ -9,6 +9,7 @@ import {
   Route
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import UserCard from './components/UserCard/UserCard';
 
 function App() {
   return (

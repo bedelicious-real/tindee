@@ -1,0 +1,25 @@
+
+.user_card{
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: url('../../assets/pexels-harsh-kushwaha-1689731.jpg');
+    border-radius: 15px;
+}
+
+.distance{
+    position: absolute;
+    width: 61px;
+    height: 34px;
+    left: 56px;
+    top: 156px;
+
+    /* White #FFFFFF */
+
+    background: #FFFFFF;
+    opacity: 0.15;
+    border-radius: 7px;
+}
