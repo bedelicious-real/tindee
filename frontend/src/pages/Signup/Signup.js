@@ -1,12 +1,12 @@
 import React, { Component, useState } from 'react';
 import ReactDOM, { render } from 'react-dom';
 import 'antd/dist/antd.css';
-import './Login.css'
+import './Signup.css'
 import logo from "../../assets/hands-helping-solid.svg";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-function Login () {
+function Signup () {
     const onFinish = (values) => {
       console.log('Success:', values);
     };
@@ -35,11 +35,15 @@ function Login () {
                     <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
                 <Button variant='outline-light' type="submit" className='big_button'>
-                    LOG IN
+                    BECOME A MENTEE
                 </Button>
+                <Button variant='dark' type="submit" className='big_button'>
+                    BECOME A MENTOR
+                </Button>
+
             </Form>
             </div>
-            <p> By clicking Log In, you agree with our Terms. </p>
+            <p> By registering your account, you agree with our Terms. </p>
             <p> Learn how we process your data in our Privacy Policy and Cookies Policy </p>
             
     </div>
@@ -48,7 +52,7 @@ function Login () {
 };
   
 
-export default Login;
+export default Signup;
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<Login/>, rootElement);
+ReactDOM.render(<Signup/>, rootElement);
