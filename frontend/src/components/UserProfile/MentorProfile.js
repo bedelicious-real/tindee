@@ -8,10 +8,12 @@ import { Form, Select, InputNumber, Button, Upload } from 'antd';
 const { Option } = Select;
 const formItemLayout = {
     labelCol: {
-      span: 6,
+      span: 24,
+      offset: 1,
     },
     wrapperCol: {
-      span: 14,
+      span: 24,
+      offset: 1,
     },
 };
 
@@ -89,7 +91,7 @@ class MentorProfile extends Component {
 
     render() { 
         return (
-        <div>
+        <div className='editprofile_page' >
             <h1>Edit Your Profile</h1>
             <Form
               name="validate_other"
@@ -129,6 +131,7 @@ class MentorProfile extends Component {
         ]}
       >
         <InputNumber
+          min={0}
           style={{
             width: '100%',
           }}
@@ -179,32 +182,27 @@ class MentorProfile extends Component {
           <Option value="Referral">Referral</Option>
         </Select>
       </Form.Item>
-
-
-
-
-      <Form.Item
-        wrapperCol={{
-          span: 12,
-          offset: 6,
-        }}
-      >
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
-
-    <Upload
+      <div className='buttons'>
+        <Upload
           fileList={this.state.selectedFileList}
           customRequest={dummyRequest}
           onChange={this.onChange}
           beforeUpload={beforeUpload}
         >
-          <Button>Choose File</Button>
-    </Upload>
-    <Button onClick={() => this.onSubmit(this.state.selectedFile)}> Submit </Button>
+          <Button className="small_button">Choose File</Button>
+        </Upload>
+        <Button className="small_button" onClick={() => this.onSubmit(this.state.selectedFile)}> Upload Image </Button>
+      </div>
 
+      <Form.Item wrapperCol={{
+          offset: 1,
+        }}
+      >
+        <Button className="big_button" htmlType="submit">
+          SUBMIT
+        </Button>
+      </Form.Item>
+    </Form>
 
 
         <pre>{JSON.stringify(this.state, null, 2)}</pre>
