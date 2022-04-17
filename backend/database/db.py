@@ -150,6 +150,10 @@ class Mentor(db.Model):
                 'offers': mentor.offers, 'concentration': mentor.concentration,
                 'company_id': mentor.company_id}
 
+    @staticmethod
+    def isMentor(mentorEmail):
+        mentor = Mentor.query.filter_by(email=mentorEmail).first()
+        return mentor is not None
 # Mentee user of Tindee
 
 
@@ -212,3 +216,8 @@ class Mentee(db.Model):
                 'image_url': mentee.image_url, 'organization': mentee.organization,
                 'full_time_status': mentee.full_time_status, 'edu_level': mentee.edu_level,
                 'description': mentee.description}
+
+    @staticmethod
+    def isMentee(menteeEmail):
+        mentee = Mentee.query.filter_by(email=menteeEmail).first()
+        return mentee is not None

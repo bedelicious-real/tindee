@@ -17,9 +17,10 @@ class Like(db.Model):
         'tindeeUser.email'), primary_key=True, nullable=False)
 
     # Foreign key to TindeeUser
-    liking_user = db.relationship('TindeeUser', backref=bf('like', uselist=False), foreign_keys='[Like.liking_email]')
-    liked_user = db.relationship('TindeeUser', foreign_keys='[Like.liked_email]')
-
+    liking_user = db.relationship('TindeeUser', backref=bf(
+        'like', uselist=False), foreign_keys='[Like.liking_email]')
+    liked_user = db.relationship(
+        'TindeeUser', foreign_keys='[Like.liked_email]')
 
     def __init__(self, liking, liked):
         self.liking_email = liking
@@ -72,8 +73,10 @@ class Match(db.Model):
         'tindeeUser.email'), primary_key=True, nullable=False)
 
     # Foreign key to TindeeUser
-    mentor_user = db.relationship('TindeeUser', backref=bf('match', uselist=False), foreign_keys='[Match.mentor_email]')
-    mentee_user = db.relationship('TindeeUser', foreign_keys='[Match.mentee_email]')
+    mentor_user = db.relationship('TindeeUser', backref=bf(
+        'match', uselist=False), foreign_keys='[Match.mentor_email]')
+    mentee_user = db.relationship(
+        'TindeeUser', foreign_keys='[Match.mentee_email]')
 
     def __init__(self, mentor, mentee):
         self.mentor_email = mentor
@@ -107,3 +110,13 @@ class Match(db.Model):
         except Exception as e:
             print(e)
             raise Exception('Other')
+
+    @staticmethod
+    def getMentors(menteeEmail):
+        matches = Match.query.filter_by(mentee_email=menteeEmail).all()
+        return [match.mentor_email for match in matches]
+
+    @staticmethod
+    def getMentees(mentorEmail):
+        matches = Match.query.filter_by(mentor_email=mentorEmail).all()
+        return [match.mentee_email for match in matches]
