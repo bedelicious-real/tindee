@@ -110,3 +110,13 @@ class Match(db.Model):
         except Exception as e:
             print(e)
             raise Exception('Other')
+
+    @staticmethod
+    def getMentors(menteeEmail):
+        matches = Match.query.filter_by(mentee_email=menteeEmail).all()
+        return [match.mentor_email for match in matches]
+
+    @staticmethod
+    def getMentees(mentorEmail):
+        matches = Match.query.filter_by(mentor_email=mentorEmail).all()
+        return [match.mentee_email for match in matches]
