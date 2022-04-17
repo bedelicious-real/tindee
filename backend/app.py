@@ -12,6 +12,6 @@ app.register_blueprint(matches, url_prefix='/matches')
 db.init_app(app)
 # match_db.init_app(app)
 app.app_context().push()
-db.drop_all()
-db.create_all()
+# db.drop_all()
+# db.create_all()
 

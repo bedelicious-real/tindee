@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from flask import Blueprint, request
 from api.middleware_auth import token_required
+from database.db import Mentor
 from database.match import Like, Match
 import os
 
@@ -15,14 +16,18 @@ JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
 @token_required
 def get_mentors(uuid, email):
     is_full = request.args.get('full', default=False, type=bool)
-    return 200
+    return {
+        "data": Match.getMentors(email)
+    }, 200
 
 
 @matches.route('/mentees', methods=['GET'])
 @token_required
 def get_mentees(uuid, email):
     is_full = request.args.get('full', default=False, type=bool)
-    return 200
+    return {
+        "data": Match.getMentees(email)
+    }, 200
 
 
 @matches.route('/', methods=['POST'])
@@ -32,7 +37,10 @@ def like(uuid, email):
         response = True
         receiver = request.get_json()
         response &= Like.insertLike(email, receiver)
+
         if response and Like.isMatch(email, receiver):
+            if Mentor.isMentor(receiver): 
+                email, receiver = receiver, email
             response &= Match.insertMatch(email, receiver)
         
         if response == False:
