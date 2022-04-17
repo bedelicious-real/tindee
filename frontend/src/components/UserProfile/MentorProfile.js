@@ -18,9 +18,19 @@ const formItemLayout = {
 };
 
 
-const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-    console.log(JSON.stringify(values));
+const onFinish = (form) => {
+    console.log('Received values of form: ', form);
+    fetch(`http://172.20.16.58:5000/profile/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(form),
+
+    })
+    .then(res => {
+      console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
+    })
 };
 
 
@@ -74,7 +84,7 @@ class MentorProfile extends Component {
     const formData = new FormData();
     formData.append("file", file);
     console.log('Received values of form: ', file);
-    fetch(`https://localhost:3000/api/image`, {
+    fetch(`http://172.20.16.58:5000/profile/avatar`, {
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data'
