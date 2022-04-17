@@ -3,8 +3,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey, true
 from database.db import TindeeUser, Mentor, Mentee
+from . import db as db_file
+from sqlalchemy.orm import backref as bf
 
-db = SQLAlchemy()
+db = db_file.db
 
 
 class Like(db.Model):
@@ -15,7 +17,10 @@ class Like(db.Model):
         'tindeeUser.email'), primary_key=True, nullable=False)
 
     # Foreign key to TindeeUser
-    user = db.relationship('TindeeUser', back_populates='like')
+    liking_user = db.relationship('TindeeUser', backref=bf(
+        'like', uselist=False), foreign_keys='[Like.liking_email]')
+    liked_user = db.relationship(
+        'TindeeUser', foreign_keys='[Like.liked_email]')
 
     def __init__(self, liking, liked):
         self.liking_email = liking
@@ -68,7 +73,10 @@ class Match(db.Model):
         'tindeeUser.email'), primary_key=True, nullable=False)
 
     # Foreign key to TindeeUser
-    user = db.relationship('TindeeUser', back_populates='match')
+    mentor_user = db.relationship('TindeeUser', backref=bf(
+        'match', uselist=False), foreign_keys='[Match.mentor_email]')
+    mentee_user = db.relationship(
+        'TindeeUser', foreign_keys='[Match.mentee_email]')
 
     def __init__(self, mentor, mentee):
         self.mentor_email = mentor
