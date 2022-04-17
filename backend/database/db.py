@@ -22,6 +22,10 @@ class TindeeUser(db.Model):
     mentor = db.relationship('Mentor', back_populates='user', uselist=False)
     # relationship to mentee
     mentee = db.relationship('Mentee', back_populates='user', uselist=False)
+    # relationship to like
+    like = db.relationship('Like', back_populates='user')
+    # relationship to match
+    match = db.relationship('Match', back_populates='user')
 
     def __init__(self, email, first_name, last_name, hashpass, url):
         self.email = email
@@ -43,9 +47,7 @@ class TindeeUser(db.Model):
     @staticmethod
     def insertUser(email, first_name, last_name, hashpass, image_url):
         newUser = TindeeUser(email, first_name, last_name, hashpass, image_url)
-        print('hoho')
         db.session.add(newUser)
-        print('cac')
         try:
             db.session.commit()
             print(TindeeUser.searchUUID(email))
