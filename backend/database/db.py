@@ -22,10 +22,12 @@ class TindeeUser(db.Model):
     mentor = db.relationship('Mentor', back_populates='user', uselist=False)
     # relationship to mentee
     mentee = db.relationship('Mentee', back_populates='user', uselist=False)
-    # relationship to like
-    like = db.relationship('Like', back_populates='user')
-    # relationship to match
-    match = db.relationship('Match', back_populates='user')
+    # # relationship to like
+    # liking = db.relationship('Like', back_populates='liking_user', uselist=False)
+    # liked = db.relationship('Like', back_populates='liked_user', uselist=False)
+    # # relationship to match
+    # match_mentor = db.relationship('Match', back_populates='mentor_user', uselist=False)
+    # match_mentee = db.relationship('Match', back_populates='mentee_user', uselist=False)
 
     def __init__(self, email, first_name, last_name, hashpass, url):
         self.email = email

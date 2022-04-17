@@ -40,6 +40,7 @@ def create_new_user():
             algorithm='HS256'
         )
     except Exception as err:
+        print(err)
         if str(err) == 'Existed':
             return 'User already existed', 400
         if str(err) == 'Other':
