@@ -75,7 +75,43 @@ class MentorProfile extends Component {
               {...formItemLayout}
               onFinish={onFinish}
             >
-  
+            <Form.Item
+                name="first-name"
+                label="First Name"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your first name!',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                name="last-name"
+                label="Last Name"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your last name!',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                name="organization"
+                label="Organization:Company"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your organization or company!',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+
               
       <Form.Item
         name="role"
