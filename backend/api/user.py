@@ -1,3 +1,6 @@
+from datetime import timezone
+import datetime
+from dotenv import load_dotenv
 from flask import Blueprint, request, current_app
 import bcrypt
 import os
@@ -6,6 +9,7 @@ from database.db import TindeeUser
 
 user = Blueprint('user', __name__)
 
+load_dotenv()
 SALT_ROUNDS = int(os.environ.get('SALT_ROUNDS'))
 JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
 
@@ -29,7 +33,8 @@ def create_new_user():
         return jwt.encode(
             {
                 'uuid': uuid,
-                'email': email
+                'email': email,
+                'exp': datetime.datetime.now(tz=timezone.utc) + datetime.timedelta(hours=5)
             },
             JWT_SECRET_KEY,
             algorithm='HS256'
@@ -61,7 +66,8 @@ def login():
         return jwt.encode(
             {
                 'uuid': uuid,
-                'email': email
+                'email': email,
+                'exp': datetime.datetime.now(tz=timezone.utc) + datetime.timedelta(hours=5)
             },
             JWT_SECRET_KEY,
             algorithm='HS256'
