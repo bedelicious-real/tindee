@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from './pages/Login/Login';
-import LoginForm from './pages/Login/LoginForm';
+import Signup from './pages/Signup/Signup';
 import EditProfile from './pages/EditProfile/EditProfile';
 import {
   BrowserRouter,
@@ -18,7 +18,7 @@ function App() {
       <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login/>} />
-            <Route path="/loginform" element={<LoginForm/>} />
+            <Route path="/signup" element={<Signup/>} />
             <Route path="/editprofile" element={<EditProfile/>} />
           </Routes>
         </BrowserRouter>
