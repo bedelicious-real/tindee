@@ -16,7 +16,19 @@ const formItemLayout = {
       offset: 1,
     },
 };
-
+/*
+<div className='buttons'>
+<Upload
+  fileList={this.state.selectedFileList}
+  customRequest={dummyRequest}
+  onChange={this.onChange}
+  beforeUpload={beforeUpload}
+>
+  <Button className="small_button">Choose File</Button>
+</Upload>
+<Button className="small_button" onClick={() => this.onSubmit(this.state.selectedFile)}> Upload Image </Button>
+</div>
+*/ 
 
 const dummyRequest = ({ file, onSuccess }) => {
   setTimeout(() => {
@@ -39,6 +51,8 @@ const beforeUpload = (file) => {
 
 
 function MentorProfile() {
+
+  /*
   const state = {
     selectedFile: null,
     selectedFileList: []
@@ -79,6 +93,8 @@ function MentorProfile() {
       console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
     })
   };
+
+  */
   
   const onFinish = (form) => {
     console.log('Received values of form: ', form);
@@ -96,15 +112,15 @@ function MentorProfile() {
   };
 
 
-        return (
-        <div className='editprofile_page' >
-            <h1>Edit Your Profile</h1>
-            <Form
-              name="validate_other"
-              {...formItemLayout}
-              onFinish={onFinish}
-            >
-  
+    return (
+    <div className='editprofile_page' >
+        <h1>Edit Your Profile</h1>
+        <Form
+          name="validate_other"
+          {...formItemLayout}
+          onFinish={onFinish}
+        >
+
               
       <Form.Item
         name="role"
@@ -188,17 +204,7 @@ function MentorProfile() {
           <Option value="Referral">Referral</Option>
         </Select>
       </Form.Item>
-      <div className='buttons'>
-        <Upload
-          fileList={this.state.selectedFileList}
-          customRequest={dummyRequest}
-          onChange={this.onChange}
-          beforeUpload={beforeUpload}
-        >
-          <Button className="small_button">Choose File</Button>
-        </Upload>
-        <Button className="small_button" onClick={() => this.onSubmit(this.state.selectedFile)}> Upload Image </Button>
-      </div>
+
 
       <Form.Item wrapperCol={{
           offset: 1,
@@ -210,7 +216,6 @@ function MentorProfile() {
       </Form.Item>
     </Form>
 
-        <pre>{JSON.stringify(this.state, null, 2)}</pre>
 
         </div>
         );
