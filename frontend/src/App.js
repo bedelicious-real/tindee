@@ -1,6 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import Login from './pages/Login/Login';
+import Messages from './pages/Messages/Messages';
 import Signup from './pages/Signup/Signup';
 import EditProfile from './pages/EditProfile/EditProfile';
 import {
@@ -21,6 +21,7 @@ function App() {
             <Route path="/login" element={<Login/>} />
             <Route path="/signup" element={<Signup/>} />
             <Route path="/editprofile" element={<EditProfile/>} />
+            <Route path="/messages" element={<Messages/>} />
           </Routes>
         </BrowserRouter>
     </div>
