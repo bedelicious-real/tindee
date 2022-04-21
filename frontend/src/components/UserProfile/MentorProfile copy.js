@@ -8,12 +8,10 @@ import { Form, Select, InputNumber, Button, Upload } from 'antd';
 const { Option } = Select;
 const formItemLayout = {
     labelCol: {
-      span: 24,
-      offset: 1,
+      span: 6,
     },
     wrapperCol: {
-      span: 24,
-      offset: 1,
+      span: 14,
     },
 };
 
@@ -22,8 +20,6 @@ const onFinish = (values) => {
     console.log('Received values of form: ', values);
     console.log(JSON.stringify(values));
 };
-
-
 
 const dummyRequest = ({ file, onSuccess }) => {
   setTimeout(() => {
@@ -42,8 +38,6 @@ const beforeUpload = (file) => {
   }
   return isJpgOrPng && isLt2M;
 }
-
-
 
 class MentorProfile extends Component {
   state = {
@@ -70,35 +64,54 @@ class MentorProfile extends Component {
     this.setState(() => nextState);
   };
   
-  onSubmit = file => {
-    const formData = new FormData();
-    formData.append("file", file);
-    console.log('Received values of form: ', file);
-    fetch(`https://localhost:3000/api/image`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
-      body: formData,
-
-    })
-    .then(res => {
-      console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
-    })
-  };
-  
 
 
     render() { 
         return (
-        <div className='editprofile_page' >
+        <div>
             <h1>Edit Your Profile</h1>
             <Form
               name="validate_other"
               {...formItemLayout}
               onFinish={onFinish}
             >
-  
+            <Form.Item
+                name="first-name"
+                label="First Name"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your first name!',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                name="last-name"
+                label="Last Name"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your last name!',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                name="organization"
+                label="Organization:Company"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your organization or company!',
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+
               
       <Form.Item
         name="role"
@@ -131,7 +144,6 @@ class MentorProfile extends Component {
         ]}
       >
         <InputNumber
-          min={0}
           style={{
             width: '100%',
           }}
@@ -182,27 +194,31 @@ class MentorProfile extends Component {
           <Option value="Referral">Referral</Option>
         </Select>
       </Form.Item>
-      <div className='buttons'>
-        <Upload
+
+
+
+
+      <Form.Item
+        wrapperCol={{
+          span: 12,
+          offset: 6,
+        }}
+      >
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+
+    <Upload
           fileList={this.state.selectedFileList}
           customRequest={dummyRequest}
           onChange={this.onChange}
           beforeUpload={beforeUpload}
         >
-          <Button className="small_button">Choose File</Button>
-        </Upload>
-        <Button className="small_button" onClick={() => this.onSubmit(this.state.selectedFile)}> Upload Image </Button>
-      </div>
+          <Button>Choose File</Button>
+    </Upload>
 
-      <Form.Item wrapperCol={{
-          offset: 1,
-        }}
-      >
-        <Button className="big_button" htmlType="submit">
-          SUBMIT
-        </Button>
-      </Form.Item>
-    </Form>
 
 
         <pre>{JSON.stringify(this.state, null, 2)}</pre>
