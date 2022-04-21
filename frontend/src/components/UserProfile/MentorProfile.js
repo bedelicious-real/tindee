@@ -214,7 +214,6 @@ class MentorProfile extends Component {
       </Form.Item>
     </Form>
 
-
         <pre>{JSON.stringify(this.state, null, 2)}</pre>
 
         </div>

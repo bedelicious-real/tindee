@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap');
 
-.login_page {
+.signup_page {
     background-image: linear-gradient(#FF655B, #FF5864, #FD297B);
     min-height: 800px;
     color: white;
@@ -10,16 +10,16 @@
     text-align: center;
 }
 
-.login_logo {
+.signup_logo {
     text-align: center;
 }
 
-.login_logo img {
+.signup_logo img {
     margin-top: -6vw;
     width: 9vw;
 }
 
-.login_logo .title {
+.signup_logo .title {
     font-weight: 800;
     font-size: 12vw;
 }
@@ -40,7 +40,7 @@
 }
 
 
-.login_auth_buttons {
+.signup_auth_buttons {
     width: 400px;
     margin: auto;
 }
