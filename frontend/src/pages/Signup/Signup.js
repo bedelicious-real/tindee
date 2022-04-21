@@ -24,16 +24,16 @@ function Signup () {
             pwd: password,
         }
         console.log(JSON.stringify(object))
-        fetch(`http://172.20.16.58:5000/user/`, {
+        fetch(`${process.env.REACT_APP_BACKEND_HOST}/user`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(object),
         })
-        .then(res => {
-          console.log(JSON.stringify(object))
-          console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);   // key for authorization: store it somewhere for later use
         })
     };
      
