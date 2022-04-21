@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import ReactDOM, { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './Login.css'
 import logo from "../../assets/hands-helping-solid.svg";
@@ -7,15 +7,34 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 function Login () {
-    const onFinish = (values) => {
-      console.log('Success:', values);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const onSubmit = event => {
+        console.log(email);
+        console.log(password);
+        event.preventDefault();
+        const object = {
+            email: email,
+            pwd: password,
+        }
+        console.log(JSON.stringify(object))
+        fetch(`http://172.20.16.58:5000/user/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(object),
+        })
+        .then(res => {
+          console.log(JSON.stringify(object))
+          console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
+        })
     };
-  
-    const onFinishFailed = (errorInfo) => {
-      console.log('Failed:', errorInfo);
-    };
-  
+     
+
     
+
     return (
         <div className='login_page'>
             <div className="login_logo">
@@ -24,15 +43,15 @@ function Login () {
                 <p> where <span className="extra_bold">MENTORS</span> and <span className="extra_bold">MENTEES</span> are meant to <span className="extra_bold">MEET</span> </p>
             </div>
             <div className="login_auth_buttons">
-            <Form>
+            <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <div className='left'><Form.Label>Email address</Form.Label></div>
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Control type="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                <div className='left'><Form.Label>Password</Form.Label></div>
-                    <Form.Control type="password" placeholder="Password" />
+                    <div className='left'><Form.Label>Password</Form.Label></div>
+                    <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                 </Form.Group>
                 <Button variant='outline-light' type="submit" className='big_button'>
                     LOG IN
