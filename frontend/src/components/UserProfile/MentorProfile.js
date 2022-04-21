@@ -18,23 +18,6 @@ const formItemLayout = {
 };
 
 
-const onFinish = (form) => {
-    console.log('Received values of form: ', form);
-    fetch(`http://172.20.16.58:5000/profile/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(form),
-
-    })
-    .then(res => {
-      console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
-    })
-};
-
-
-
 const dummyRequest = ({ file, onSuccess }) => {
   setTimeout(() => {
     onSuccess("ok");
@@ -55,13 +38,13 @@ const beforeUpload = (file) => {
 
 
 
-class MentorProfile extends Component {
-  state = {
+function MentorProfile() {
+  const state = {
     selectedFile: null,
     selectedFileList: []
   };
 
-  onChange = info => {
+  const onChange = info => {
     const nextState = {};
     switch (info.file.status) {
       case "uploading":
@@ -80,7 +63,7 @@ class MentorProfile extends Component {
     this.setState(() => nextState);
   };
   
-  onSubmit = file => {
+  const onSubmit = (file) => {
     const formData = new FormData();
     formData.append("file", file);
     console.log('Received values of form: ', file);
@@ -97,9 +80,22 @@ class MentorProfile extends Component {
     })
   };
   
+  const onFinish = (form) => {
+    console.log('Received values of form: ', form);
+    fetch(`http://172.20.16.58:5000/profile/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(form),
+
+    })
+    .then(res => {
+      console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
+    })
+  };
 
 
-    render() { 
         return (
         <div className='editprofile_page' >
             <h1>Edit Your Profile</h1>
@@ -219,7 +215,6 @@ class MentorProfile extends Component {
         </div>
         );
     }
-}
  
 export default MentorProfile;
 

@@ -16,14 +16,23 @@ const formItemLayout = {
     },
 };
 
-
-const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-    console.log(JSON.stringify(values));
-};
-
-
 function MenteeProfile() {
+    
+    const onFinish = (form) => {
+        console.log('Received values of form: ', form);
+        fetch(`http://172.20.16.58:5000/profile/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(form),
+    
+        })
+        .then(res => {
+          console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
+        })
+    };
+    
     return (
         <div className='editprofile_page' >
             <h1>Edit Your Profile</h1>
