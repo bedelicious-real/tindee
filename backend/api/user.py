@@ -1,11 +1,13 @@
 from datetime import timezone
 import datetime
 from dotenv import load_dotenv
-from flask import Blueprint, request, current_app
+from flask import Blueprint, request, current_app, jsonify
 import bcrypt
 import os
 import jwt
 from database.db import TindeeUser
+
+from flask_cors import CORS
 
 user = Blueprint('user', __name__)
 
@@ -14,7 +16,7 @@ SALT_ROUNDS = int(os.environ.get('SALT_ROUNDS'))
 JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
 
 
-@user.route('/', methods=['POST'])
+@user.route('', methods=['POST'])
 def create_new_user():
     data = request.get_json()
     if data is None:
@@ -30,7 +32,7 @@ def create_new_user():
     try:
         uuid = TindeeUser.insertUser(
             email, first_name, last_name, hashed_pwd, None)
-        return jwt.encode(
+        return jsonify(jwt.encode(
             {
                 'uuid': uuid,
                 'email': email,
@@ -38,7 +40,7 @@ def create_new_user():
             },
             JWT_SECRET_KEY,
             algorithm='HS256'
-        )
+        ))
     except Exception as err:
         if str(err) == 'Existed':
             return 'User already existed', 400
@@ -63,7 +65,7 @@ def login():
         if not bcrypt.checkpw(raw_pwd.encode(), hashed_pwd.encode()):
             return 'Wrong password', 400
 
-        return jwt.encode(
+        return jsonify(jwt.encode(
             {
                 'uuid': uuid,
                 'email': email,
@@ -71,7 +73,7 @@ def login():
             },
             JWT_SECRET_KEY,
             algorithm='HS256'
-        )
+        ))
     except Exception as err:
         print(err)
         return 'We\'re not OK', 500
