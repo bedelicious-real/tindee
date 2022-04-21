@@ -1,7 +1,7 @@
 from sqlite3 import IntegrityError
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import ForeignKey, true
+from sqlalchemy import ForeignKey
 from database.db import TindeeUser, Mentor, Mentee
 from . import db as db_file
 from sqlalchemy.orm import backref as bf
