@@ -128,10 +128,14 @@ class Mentor(db.Model):
         if (mentor is None):
             return Mentor.insertMentor(mentorEmail, exp_years, offers, concentration, company_id)
         else:
-            mentor.exp_years = exp_years
-            mentor.offers = offers
-            mentor.concentration = concentration
-            mentor.company_id = company_id
+            if (exp_years is not None):
+                mentor.exp_years = exp_years
+            if (offers is not None):
+                mentor.offers = offers
+            if (concentration is not None):
+                mentor.concentration = concentration
+            if (company_id is not None):
+                mentor.company_id = company_id
             try:
                 db.session.commit()
                 return mentorEmail
@@ -195,10 +199,14 @@ class Mentee(db.Model):
         if (mentee is None):
             return Mentee.insertMentee(menteeEmail, organization, full_time_status, edu_level, description)
         else:
-            mentee.organization = organization
-            mentee.full_time_status = full_time_status
-            mentee.edu_level = edu_level
-            mentee.description = description
+            if (organization is not None):
+                mentee.organization = organization
+            if (full_time_status is not None):
+                mentee.full_time_status = full_time_status
+            if (edu_level is not None):
+                mentee.edu_level = edu_level
+            if (description is not None):
+                mentee.description = description
             try:
                 db.session.commit()
                 return menteeEmail
