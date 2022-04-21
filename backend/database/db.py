@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 import uuid as uid
+from sqlalchemy.orm import backref as bf
 
 db = SQLAlchemy()
 
@@ -22,12 +23,6 @@ class TindeeUser(db.Model):
     mentor = db.relationship('Mentor', back_populates='user', uselist=False)
     # relationship to mentee
     mentee = db.relationship('Mentee', back_populates='user', uselist=False)
-    # # relationship to like
-    # liking = db.relationship('Like', back_populates='liking_user', uselist=False)
-    # liked = db.relationship('Like', back_populates='liked_user', uselist=False)
-    # # relationship to match
-    # match_mentor = db.relationship('Match', back_populates='mentor_user', uselist=False)
-    # match_mentee = db.relationship('Match', back_populates='mentee_user', uselist=False)
 
     def __init__(self, email, first_name, last_name, hashpass, url):
         self.email = email
@@ -98,10 +93,15 @@ class Mentor(db.Model):
     exp_years = db.Column(db.Integer, nullable=False)
     offers = db.Column(db.ARRAY(db.String(100)), nullable=False)
     concentration = db.Column(db.ARRAY(db.String(100)), nullable=False)
-    company_id = db.Column(db.Integer, nullable=False)
+    company_id = db.Column(db.Integer, ForeignKey(
+        'company.company_id'), nullable=False)
 
     # Foreign key to TindeeUser
     user = db.relationship('TindeeUser', back_populates='mentor')
+
+    # Foreign key to Company
+    user = db.relationship('Company', backref=bf(
+        'company', uselist=False), foreign_keys='[mentor.company_id]')
 
     def __init__(self, email, exp_years, offers, concentration, company_id):
         self.email = email
