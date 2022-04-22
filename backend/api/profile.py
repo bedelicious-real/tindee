@@ -1,3 +1,4 @@
+import hashlib
 from dotenv import load_dotenv
 from flask import Blueprint, request, jsonify
 from api.middleware_auth import token_required
@@ -9,15 +10,20 @@ load_dotenv()
 profile = Blueprint('profile', __name__)
 
 def parse_image_from_request(req):
-    f = open('/Users/trungnguyen/Downloads/img-0001.png', 'rb')
-    return f.read()
+    Logging.print(req)
+    file = req.files['file']
+    return file.read()
 
 @profile.route('/avatar', methods=['POST'])
 @token_required
 def upload_avatar(uuid, email):
-    content = parse_image_from_request(request)
-    url = upload_to_gcp(content)
-    print(uuid, email, url)
+    try:
+        content = parse_image_from_request(request)
+        md5 = hashlib.md5(content).hexdigest()
+    except Exception as err:
+        Logging.print(err)
+        return jsonify('Cannot read image'), 400
+    url = upload_to_gcp(content, md5)
     try:
         TindeeUser.updateUser(id=uuid, url=url)
     except Exception as err:
