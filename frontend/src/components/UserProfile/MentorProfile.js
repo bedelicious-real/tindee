@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import { Image } from 'antd';
 import React, { Component, useState } from 'react';
 import { Form, Select, InputNumber, Button, Upload, Input } from 'antd';
+import UploadImage from './UploadImage';
 //import ImgCrop from 'antd-img-crop';
 
 const { Option } = Select;
@@ -118,6 +119,7 @@ function MentorProfile() {
     return (
     <div className='editprofile_page' >
         <h1>Edit Your Profile</h1>
+        <UploadImage/>
         <Form
           name="validate_other"
           {...formItemLayout}
