@@ -12,18 +12,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import UserCard from './components/UserCard/UserCard';
 
 function App() {
+
   return (
     <div className="App">
-      
-      <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Login/>} />
-            <Route path="/login" element={<Login/>} />
-            <Route path="/signup" element={<Signup/>} />
-            <Route path="/editprofile" element={<EditProfile/>} />
-            <Route path="/messages" element={<Messages/>} />
-          </Routes>
-        </BrowserRouter>
+        <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Login/>} />
+              <Route path="/login" element={<Login/>} />
+              <Route path="/signup" element={<Signup/>} />
+              <Route path="/editprofile" element={<EditProfile/>} />
+              <Route path="/messages" element={<Messages/>} />
+            </Routes>
+          </BrowserRouter>
     </div>
   );
 }

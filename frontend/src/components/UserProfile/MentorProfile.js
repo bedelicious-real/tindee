@@ -2,7 +2,8 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { Image } from 'antd';
 import React, { Component, useState } from 'react';
-import { Form, Select, InputNumber, Button, Upload } from 'antd';
+import { Form, Select, InputNumber, Button, Upload, Input } from 'antd';
+import UploadImage from './UploadImage';
 //import ImgCrop from 'antd-img-crop';
 
 const { Option } = Select;
@@ -16,7 +17,19 @@ const formItemLayout = {
       offset: 1,
     },
 };
-
+/*
+<div className='buttons'>
+<Upload
+  fileList={this.state.selectedFileList}
+  customRequest={dummyRequest}
+  onChange={this.onChange}
+  beforeUpload={beforeUpload}
+>
+  <Button className="small_button">Choose File</Button>
+</Upload>
+<Button className="small_button" onClick={() => this.onSubmit(this.state.selectedFile)}> Upload Image </Button>
+</div>
+*/ 
 
 const dummyRequest = ({ file, onSuccess }) => {
   setTimeout(() => {
@@ -39,6 +52,8 @@ const beforeUpload = (file) => {
 
 
 function MentorProfile() {
+
+  /*
   const state = {
     selectedFile: null,
     selectedFileList: []
@@ -79,32 +94,38 @@ function MentorProfile() {
       console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
     })
   };
+
+  */
   
   const onFinish = (form) => {
     console.log('Received values of form: ', form);
-    fetch(`http://172.20.16.58:5000/profile/`, {
+    const token = window.sessionStorage.getItem('token');
+    fetch(`${process.env.REACT_APP_BACKEND_HOST}/profile?mentor=true`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(form),
 
     })
-    .then(res => {
-      console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
     })
   };
 
 
-        return (
-        <div className='editprofile_page' >
-            <h1>Edit Your Profile</h1>
-            <Form
-              name="validate_other"
-              {...formItemLayout}
-              onFinish={onFinish}
-            >
-  
+    return (
+    <div className='editprofile_page' >
+        <h1>Edit Your Profile</h1>
+        <UploadImage/>
+        <Form
+          name="validate_other"
+          {...formItemLayout}
+          onFinish={onFinish}
+        >
+
               
       <Form.Item
         name="role"
@@ -124,6 +145,19 @@ function MentorProfile() {
           <Option value="Product Manager">Product Manager</Option>
           <Option value="Electrical Engineer">Electrical Engineer</Option>
         </Select>
+      </Form.Item>
+
+      <Form.Item
+          name="organization"
+          label="Organization/Company"
+          rules={[
+              {
+                  required: true,
+                  message: 'Please input your organization or company!',
+              },
+          ]}
+      >
+          <Input />
       </Form.Item>
 
       <Form.Item
@@ -188,17 +222,7 @@ function MentorProfile() {
           <Option value="Referral">Referral</Option>
         </Select>
       </Form.Item>
-      <div className='buttons'>
-        <Upload
-          fileList={this.state.selectedFileList}
-          customRequest={dummyRequest}
-          onChange={this.onChange}
-          beforeUpload={beforeUpload}
-        >
-          <Button className="small_button">Choose File</Button>
-        </Upload>
-        <Button className="small_button" onClick={() => this.onSubmit(this.state.selectedFile)}> Upload Image </Button>
-      </div>
+
 
       <Form.Item wrapperCol={{
           offset: 1,
@@ -210,7 +234,6 @@ function MentorProfile() {
       </Form.Item>
     </Form>
 
-        <pre>{JSON.stringify(this.state, null, 2)}</pre>
 
         </div>
         );
@@ -218,5 +241,5 @@ function MentorProfile() {
  
 export default MentorProfile;
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<MentorProfile/>, rootElement);
+// const rootElement = document.getElementById("root");
+// ReactDOM.render(<MentorProfile/>, rootElement);
