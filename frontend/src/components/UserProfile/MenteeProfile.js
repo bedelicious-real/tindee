@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import React, { Component, useContext, useState } from 'react';
 import { Form, Select, InputNumber, Button, Upload, Input } from 'antd';
-
+import './UserProfile.css';
 
 const { Option } = Select;
 const formItemLayout = {
@@ -17,7 +17,6 @@ const formItemLayout = {
 };
 
 function MenteeProfile() {
-    
     const onFinish = (form) => {
         console.log('Received values of form: ', form);
         const token = window.sessionStorage.getItem('token');
