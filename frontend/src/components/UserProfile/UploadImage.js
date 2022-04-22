@@ -36,7 +36,7 @@ export default function UploadImage() {
   }
 
   return (
-    <div style={{marginTop: 20, marginBottom: 10}}>
+    <div style={{marginTop: 50, marginBottom: 10, marginLeft: 12}}>
       <form onSubmit={onSubmit}>
         <label className="upload_input_container">
           Choose Image
@@ -50,7 +50,7 @@ export default function UploadImage() {
             }}
           />
         </label>
-        <button className="upload_input_container" type="submit">Upload Image</button>
+        <button className="button_container" type="submit">Upload Image</button>
       </form>
  
     </div>

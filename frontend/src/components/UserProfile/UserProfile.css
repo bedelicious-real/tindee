@@ -1,17 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap');
 
-
+body {
+    background-image: linear-gradient(#f69891, #ff9858, #e56d75,#f69891);
+    height: 1500px;
+}
 .editprofile_page {
     font-size: 13.5px;
     padding: 50px;
     width: 800px;
     margin: auto;
-    background: rgba( 255, 255, 255, 0.5 );
+    margin-top: 30px;
+    background: rgba( 255, 255, 255, 1 );
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 4px );
     -webkit-backdrop-filter: blur( 4px );
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
+
 }
 
 .big_button {
@@ -31,23 +36,23 @@
 }
 
 button {
-    width: 96%;
-    height: 33px;
+    width: 76%;
+    height: 35px;
     padding: 0px 12px;
     margin: 5px 25px;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(244, 73, 101);
     box-sizing: border-box;
     border-radius: 4px;
     cursor: pointer;
-    color: black;
-    background-color: white;
+    background: rgb(244, 73, 101);
+    color: white;
 }
 
 
 .big_button {
     margin: auto;
     width: 668px;
-    background-color: #000000;
+    background: rgb(244, 73, 101);
     color: white;
     border-radius: 4px;
     border: none;
@@ -60,18 +65,29 @@ input[type=file] {
 
 
 .upload_input_container{
-    width: 96%;
+    width: 65%;
     height: 33px;
-    padding: 5px 12px;
-    margin: 5px 25px;
+    padding: 5px;
+    margin: 5px 10px;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
+.button_container{
+    width: 31%;
+    height: 33px;
+    padding: 5px 5px;
+    margin: 5px 0px;
+    display: inline-block;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
 .big_button:hover{
     background: rgb(244, 73, 101);
-    color: black;
+    color: white;
 }
   

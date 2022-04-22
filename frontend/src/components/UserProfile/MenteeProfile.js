@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import React, { Component, useContext, useState } from 'react';
 import { Form, Select, InputNumber, Button, Upload, Input } from 'antd';
 import './UserProfile.css';
+import UploadImage from './UploadImage';
 
 const { Option } = Select;
 const formItemLayout = {
@@ -37,6 +38,9 @@ function MenteeProfile() {
     return (
         <div className='editprofile_page' >
             <h1>Edit Your Profile</h1>
+            <div className='upload_container'>
+                <UploadImage/>
+            </div>
             <Form
               name="validate_other"
               {...formItemLayout}
