@@ -20,18 +20,23 @@ export default function UploadImage() {
     event.preventDefault();
     const formData = new FormData();
     formData.append('file', file);
+<<<<<<< HEAD
     // console.log(file);
+=======
+    console.log(formData);
+
+    const token = window.sessionStorage.getItem('token');
+>>>>>>> 499da7ab71aec50e4963f2e3dbe27fe7cc39a4ac
     fetch(`${process.env.REACT_APP_BACKEND_HOST}/profile/avatar`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Authorization': `Bearer ${token}`
       },
       body: formData,
     })
     .then(res => res.json())
     .then(data => {
-        window.sessionStorage.setItem('token', data);
-        window.sessionStorage.setItem('email', email);
+      console.log(data);
     })
   }
 
