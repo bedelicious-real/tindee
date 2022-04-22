@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { Image } from 'antd';
 import React, { Component, useState } from 'react';
-import { Form, Select, InputNumber, Button, Upload } from 'antd';
+import { Form, Select, InputNumber, Button, Upload, Input } from 'antd';
 //import ImgCrop from 'antd-img-crop';
 
 const { Option } = Select;
@@ -98,16 +98,19 @@ function MentorProfile() {
   
   const onFinish = (form) => {
     console.log('Received values of form: ', form);
-    fetch(`http://172.20.16.58:5000/profile/`, {
+    const token = window.sessionStorage.getItem('token');
+    fetch(`${process.env.REACT_APP_BACKEND_HOST}/profile?mentor=true`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(form),
 
     })
-    .then(res => {
-      console.log(JSON.stringify(`${res.message}, status: ${res.status}`));
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
     })
   };
 
@@ -140,6 +143,19 @@ function MentorProfile() {
           <Option value="Product Manager">Product Manager</Option>
           <Option value="Electrical Engineer">Electrical Engineer</Option>
         </Select>
+      </Form.Item>
+
+      <Form.Item
+          name="organization"
+          label="Organization/Company"
+          rules={[
+              {
+                  required: true,
+                  message: 'Please input your organization or company!',
+              },
+          ]}
+      >
+          <Input />
       </Form.Item>
 
       <Form.Item
@@ -223,5 +239,5 @@ function MentorProfile() {
  
 export default MentorProfile;
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<MentorProfile/>, rootElement);
+// const rootElement = document.getElementById("root");
+// ReactDOM.render(<MentorProfile/>, rootElement);
