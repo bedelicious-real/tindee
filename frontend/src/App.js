@@ -9,7 +9,9 @@ import {
   Route
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import UserCard from './components/UserCard/UserCard';
+import Swipe from './pages/Swipe/Swipe';
+import Info from './components/Info/Info';
+import Filter from './components/Filter/Filter';
 
 function App() {
 
@@ -22,6 +24,7 @@ function App() {
               <Route path="/signup" element={<Signup/>} />
               <Route path="/editprofile" element={<EditProfile/>} />
               <Route path="/messages" element={<Messages/>} />
+              <Route path="/swipe" element={<Swipe />} />
             </Routes>
           </BrowserRouter>
     </div>
