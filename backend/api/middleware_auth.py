@@ -1,7 +1,7 @@
 from functools import wraps
 import os
 from dotenv import load_dotenv
-from flask import request
+from flask import request, jsonify
 import jwt
 
 load_dotenv()
@@ -18,10 +18,10 @@ def token_required(f):
             token = request.headers['Authorization'].split(' ')[1]
             user_info = jwt.decode(token, JWT_SECRET_KEY, algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
-            return 'Token is expired', 400
+            return jsonify('Token is expired'), 400
         except Exception as err:
             print(err)
-            return 'Cannot verify user', 400
+            return jsonify('Cannot verify user'), 400
 
         return f(user_info['uuid'], user_info['email'], *args, **kwargs)
 

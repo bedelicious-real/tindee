@@ -10,6 +10,7 @@ from database.db import TindeeUser
 from flask_cors import CORS
 
 user = Blueprint('user', __name__)
+load_dotenv()
 
 load_dotenv()
 SALT_ROUNDS = int(os.environ.get('SALT_ROUNDS'))
@@ -26,10 +27,11 @@ def create_new_user():
     first_name = data['first']
     last_name = data['last']
     raw_pwd = data['pwd'].encode()
-    hashed_pwd = bcrypt.hashpw(
-        raw_pwd, bcrypt.gensalt(rounds=SALT_ROUNDS)).decode()
 
     try:
+        hashed_pwd = bcrypt.hashpw(
+            raw_pwd, bcrypt.gensalt(rounds=SALT_ROUNDS)).decode()
+        print(hashed_pwd)
         uuid = TindeeUser.insertUser(
             email, first_name, last_name, hashed_pwd, None)
         return jsonify(jwt.encode(
@@ -42,6 +44,7 @@ def create_new_user():
             algorithm='HS256'
         ))
     except Exception as err:
+        print(err)
         if str(err) == 'Existed':
             return 'User already existed', 400
         if str(err) == 'Other':

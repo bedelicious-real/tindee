@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useContext, useState } from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './Login.css'
@@ -9,6 +9,8 @@ import Button from 'react-bootstrap/Button';
 function Login () {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+		
 
     const onSubmit = event => {
         console.log(email);
@@ -28,7 +30,8 @@ function Login () {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);  // key for authorization: store it somewhere for later use
+            window.sessionStorage.setItem('token', data);
+						window.sessionStorage.setItem('email', email);
         })
     };
      
@@ -69,5 +72,5 @@ function Login () {
 
 export default Login;
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<Login/>, rootElement);
+// const rootElement = document.getElementById("root");
+// ReactDOM.render(<Login/>, rootElement);
