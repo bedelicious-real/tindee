@@ -65,10 +65,10 @@ input[type=file] {
 
 
 .upload_input_container{
-    width: 65%;
+    width: 64%;
     height: 33px;
     padding: 5px;
-    margin: 5px 10px;
+    margin: 5px 15px;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;

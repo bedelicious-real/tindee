@@ -17,24 +17,7 @@ const formItemLayout = {
     },
 };
 
-function MenteeProfile() {
-    const onFinish = (form) => {
-        console.log('Received values of form: ', form);
-        const token = window.sessionStorage.getItem('token');
-        fetch(`${process.env.REACT_APP_BACKEND_HOST}/profile`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify(form),
-        })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-        })
-    };
-    
+function MenteeProfile({ onFinish }) {
     return (
         <div className='editprofile_page' >
             <h1>Edit Your Profile</h1>
@@ -112,8 +95,8 @@ function MenteeProfile() {
                 offset: 1,
                 }}
             >
-                <Button className="big_button" htmlType="submit">
-                SUBMIT
+                <Button className="big_button" htmlType="submit" >
+                    UPDATE PROFILE
                 </Button>
             </Form.Item>
             </Form>
