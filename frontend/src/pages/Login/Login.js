@@ -46,23 +46,27 @@ function Login () {
                 <p> where <span className="extra_bold">MENTORS</span> and <span className="extra_bold">MENTEES</span> are meant to <span className="extra_bold">MEET</span> </p>
             </div>
             <div className="login_auth_buttons">
-            <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <div className='left'><Form.Label>Email address</Form.Label></div>
-                    <Form.Control type="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)} />
-                </Form.Group>
+                <Form onSubmit={onSubmit}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <div className='left'><Form.Label>Email address</Form.Label></div>
+                        <Form.Control type="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)} />
+                    </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <div className='left'><Form.Label>Password</Form.Label></div>
-                    <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
-                </Form.Group>
-                <Button variant='outline-light' type="submit" className='big_button'>
-                    LOG IN
-                </Button>
-            </Form>
-            </div>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <div className='left'><Form.Label>Password</Form.Label></div>
+                        <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+                    </Form.Group>
+                    <div className="d-grid gap-2" >
+                        <Button type="submit" className="submit_button" variant='outline-dark' style={{backgroundColor: 'rgb(244, 73, 101)', border: 'none', fontWeight: 700, color: 'white'}}>
+                            LOG IN
+                        </Button>
+                    </div>
+
+                </Form>
             <p> By clicking Log In, you agree with our Terms. </p>
             <p> Learn how we process your data in our Privacy Policy and Cookies Policy </p>
+            </div>
+
             
     </div>
 
