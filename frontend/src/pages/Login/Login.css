@@ -1,20 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap');
-
 body {
-    background-image: linear-gradient(#FF655B, #FF5864, #FD297B);
+    background-image: linear-gradient(#f69891, #ff9858, #e56d75,#f69891);
     height: 100%;
-}
-
-.login_page {
-    color: white;
     font-weight: 500;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
     text-align: center;
 }
+
 
 .login_logo {
     text-align: center;
+    color: white;
 }
 
 .login_logo img {
@@ -28,14 +23,25 @@ body {
 }
 
 .big_button {
-    margin: 20px 0;
-    font-weight: 800;
+    margin: auto;
     width: 400px;
+    background-color: rgb(244, 73, 101);
+    color: white;
+
+}
+
+
+.submit_button {
+    height: 45px;
+    margin: 20px 0px;
+    padding: 5px;
+    width: 100%;
 }
 
 .left {
     font-weight: 700;
     text-align: left;
+    font-size: 15px;
 }
 .extra_bold {
     font-weight: 900;
@@ -44,6 +50,16 @@ body {
 
 
 .login_auth_buttons {
-    width: 400px;
+    font-size: 1.5vw;
     margin: auto;
+    padding: 50px;
+    width: 600px;
+    margin: auto;
+    margin-top: 30px;
+    background: rgba( 255, 255, 255, 1 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }

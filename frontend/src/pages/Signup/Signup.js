@@ -70,30 +70,32 @@ function Signup () {
                         <ToggleButton
                             id="mentee"
                             type="radio"
-                            variant="outline-light"
+                            variant="outline-dark"
                             value="1"
-                            onChange={(e)=>setIsMentor(true)}
+                            onChange={(e)=>setIsMentor(false)}
                             >
                             MENTEE
                         </ToggleButton>
                         <ToggleButton
-                            id="mentOR"
+                            id="mentor"
                             type="radio"
-                            variant="outline-light"
+                            variant="outline-dark"
                             value="2"
                             onChange={(e)=>setIsMentor(true)}
                             >
                             MENTOR
                         </ToggleButton>
                     </ButtonGroup>
-                    <Button variant='dark' type="submit" className='big_button' >
-                        SIGN UP
-                    </Button>
+                    <div className="d-grid gap-2" >
+                        <Button type="submit" className="submit_button" variant='outline-dark' style={{backgroundColor: 'rgb(244, 73, 101)', border: 'none', fontWeight: 700, color: 'white'}}>
+                            LOG IN
+                        </Button>
+                    </div>
+
                 </Form>
-            </div>
-            <p> By clicking Signup, you agree with our Terms. </p>
+            <p> By clicking Log In, you agree with our Terms. </p>
             <p> Learn how we process your data in our Privacy Policy and Cookies Policy </p>
-            
+            </div>
     </div>
 
     );
