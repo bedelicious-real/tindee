@@ -8,8 +8,8 @@ export default function UserCard() {
         {name : "Escanord", url:image, job: "Software Engineer", company:"Padthai", offer:["resume", "leetcode"], concentration:["AI", "database"]}
     ]
     return (     
-        <Card style={{ width: '350px' }}>
-            <Card.Img variant="top" src={mentee[0].url} height='450px' width='350px'/>
+        <Card style={{ width: '25rem' }}>
+            <Card.Img className="card-img" variant="top" src={mentee[0].url} height='450px'/>
             <Card.Body>
                 <Card.Title >{mentee[0].name}</Card.Title>
                 <Card.Text>
