@@ -39,14 +39,14 @@ export default function UploadImage() {
     <div style={{marginTop: 50, marginBottom: 10, marginLeft: 12}}>
       <form onSubmit={onSubmit}>
         <label className="upload_input_container">
-          Choose Image
+          {file == null ? "Choose Image" : file.name}
           <input
             type="file" 
             required
             size="sm" 
             onChange={(e) => {
-              validateImage(e.target.files[0])
-              setFile(e.target.files[0])
+              if (validateImage(e.target.files[0]))
+                setFile(e.target.files[0]);
             }}
           />
         </label>
