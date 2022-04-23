@@ -10,6 +10,8 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Swipe from './pages/Swipe/Swipe';
+import Info from './components/Info/Info';
+import Filter from './components/Filter/Filter';
 
 function App() {
 

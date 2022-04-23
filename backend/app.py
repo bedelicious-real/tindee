@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from flask import Flask
 from api.user import user
 from api.profile import profile
+from api.matches import matches
 from database.db import db
 
 from flask_cors import CORS
@@ -12,6 +13,7 @@ CORS(app)
 CORS(user)
 app.register_blueprint(user, url_prefix='/user')
 app.register_blueprint(profile, url_prefix='/profile')
+app.register_blueprint(matches, url_prefix='/matches')
 
 db.init_app(app)
 app.app_context().push()
