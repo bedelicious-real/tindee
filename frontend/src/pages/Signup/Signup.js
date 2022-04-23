@@ -115,20 +115,20 @@ function Signup () {
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicFirstName">
                             <div className='left'><Form.Label>First Name</Form.Label></div>
-                            <Form.Control type="text" placeholder="Enter first name" onChange={e => setFirst(e.target.value)} />
+                            <Form.Control type="text" placeholder="Enter first name" required onChange={e => setFirst(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicLastName">
                             <div className='left'><Form.Label>Last Name</Form.Label></div>
-                            <Form.Control type="text" placeholder="Enter last name" onChange={e => setLast(e.target.value)} />
+                            <Form.Control type="text" placeholder="Enter last name" required onChange={e => setLast(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <div className='left'><Form.Label>Email address</Form.Label></div>
-                            <Form.Control type="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)} />
+                            <Form.Control type="email" placeholder="Enter email" required onChange={e => setEmail(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <div className='left'><Form.Label>Password</Form.Label></div>
-                            <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+                            <Form.Control type="password" placeholder="Password" required onChange={e => setPassword(e.target.value)} />
                         </Form.Group>
                         <ButtonGroup className="d-grid gap-2">
                             <ToggleButton
