@@ -14,7 +14,7 @@ function Login () {
     const [loading, setLoading] = useState(false);
 		
 
-    const onFinish = event => {
+    const onSubmit = event => {
         event.preventDefault();
         setLoading(true);
         const object = {
@@ -47,7 +47,7 @@ function Login () {
                     <p> where <span className="extra_bold">MENTORS</span> and <span className="extra_bold">MENTEES</span> are meant to <span className="extra_bold">MEET</span> </p>
                 </div>
                 <div className="login_auth_buttons">
-                    <Form onFinish={onFinish}>
+                    <Form onSubmit={onSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <div className='left'><Form.Label>Email address</Form.Label></div>
                             <Form.Control type="email" placeholder="Enter email" required onChange={e => setEmail(e.target.value)} />
