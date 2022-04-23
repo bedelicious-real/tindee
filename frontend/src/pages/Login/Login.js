@@ -14,11 +14,9 @@ function Login () {
     const [loading, setLoading] = useState(false);
 		
 
-    const onSubmit = event => {
-        // console.log(email);
-        // console.log(password);
-        // console.log(loading);
+    const onFinish = event => {
         event.preventDefault();
+        setLoading(true);
         const object = {
             email: email,
             pwd: password,
@@ -49,20 +47,19 @@ function Login () {
                     <p> where <span className="extra_bold">MENTORS</span> and <span className="extra_bold">MENTEES</span> are meant to <span className="extra_bold">MEET</span> </p>
                 </div>
                 <div className="login_auth_buttons">
-                    <Form onSubmit={onSubmit}>
+                    <Form onFinish={onFinish}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <div className='left'><Form.Label>Email address</Form.Label></div>
-                            <Form.Control type="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)} />
+                            <Form.Control type="email" placeholder="Enter email" required onChange={e => setEmail(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <div className='left'><Form.Label>Password</Form.Label></div>
-                            <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+                            <Form.Control type="password" placeholder="Password" required onChange={e => setPassword(e.target.value)} />
                         </Form.Group>
                         <div className="d-grid gap-2" >
                             <Button type="submit" className="submit_button" variant='outline-dark' 
                                     style={{backgroundColor: 'rgb(244, 73, 101)', border: 'none', fontWeight: 700, color: 'white'}}
-                                    onClick={()=>setLoading(true)}
                             >
                                 LOG IN
                             </Button>

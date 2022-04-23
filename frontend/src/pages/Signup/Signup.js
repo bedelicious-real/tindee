@@ -21,6 +21,7 @@ function Signup () {
     const [next, setNext] = useState(false);
 
     const onMentorFinish = (form) => {
+        setLoading(true);
         console.log('Received values of form: ', form);
         const object = {
             first: first,
@@ -28,7 +29,7 @@ function Signup () {
             email: email,
             pwd: password,
         }
-        console.log(loading);
+        //console.log(loading);
         fetch(`${process.env.REACT_APP_BACKEND_HOST}/user`, {
             method: 'POST',
             headers: {
@@ -101,7 +102,7 @@ function Signup () {
     };
 
     return (
-        <Spin spinning={loading}>
+        <Spin spinning={loading} >
             <div className='signup_page'>
                 <div className="signup_logo">
                     <img src={logo} />
