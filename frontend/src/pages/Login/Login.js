@@ -14,13 +14,22 @@ function Login () {
     const [loading, setLoading] = useState(false);
 		
 
+    const onClick = () => {
+        if (email === "" || password === "") {
+          alert("Fields are required");
+          return;
+        }
+        setLoading(true);
+    };
+
     const onSubmit = event => {
         event.preventDefault();
-        setLoading(true);
+        //setLoading(true);
         const object = {
             email: email,
             pwd: password,
         }
+        console.log(loading);
         console.log(JSON.stringify(object))
         fetch(`${process.env.REACT_APP_BACKEND_HOST}/user/session`, {
           method: 'POST',
@@ -60,6 +69,7 @@ function Login () {
                         <div className="d-grid gap-2" >
                             <Button type="submit" className="submit_button" variant='outline-dark' 
                                     style={{backgroundColor: 'rgb(244, 73, 101)', border: 'none', fontWeight: 700, color: 'white'}}
+                                    onClick={onClick}
                             >
                                 LOG IN
                             </Button>

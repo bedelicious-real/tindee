@@ -20,8 +20,8 @@ function Signup () {
     const [loading, setLoading] = useState(false);
     const [next, setNext] = useState(false);
 
+
     const onMentorFinish = (form) => {
-        setLoading(true);
         console.log('Received values of form: ', form);
         const object = {
             first: first,

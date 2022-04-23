@@ -56,8 +56,8 @@ function MentorProfile({ onFinish }) {
               label="Organization/Company"
               rules={[
                   {
-                      required: true,
-                      message: 'Please input your organization or company!',
+                    required: true,
+                    message: 'Please input your organization or company!',
                   },
               ]}
           >
@@ -130,7 +130,7 @@ function MentorProfile({ onFinish }) {
               offset: 1,
             }}
           >
-            <Button className="big_button" htmlType="submit" >
+            <Button className="big_button" htmlType="submit">
               UPDATE PROFILE
             </Button>
           </Form.Item>
@@ -141,5 +141,5 @@ function MentorProfile({ onFinish }) {
  
 export default MentorProfile;
 
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(<MentorProfile/>, rootElement);
+const rootElement = document.getElementById("root");
+ReactDOM.render(<MentorProfile/>, rootElement);
