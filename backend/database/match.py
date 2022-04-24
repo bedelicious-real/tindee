@@ -63,7 +63,7 @@ class Like(db.Model):
         if (menteeLike is not None and mentorLike is not None):
             return True
         return False
-
+    
 
 class Match(db.Model):
     __tablename__ = 'match'
