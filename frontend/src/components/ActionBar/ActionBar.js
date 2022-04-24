@@ -23,6 +23,9 @@ export default function ActionBar({
     .then(res => res.json())
     .then(data => {
       console.log(data);
+      if (data === "OK"){
+        toastr['success']("You are matched with " + candidate['first-name'] + " " + candidate['last-name'],"It's a match!!!")
+      }
       removeTopCandidate();
     })
     .catch(err => console.error(err));
@@ -46,7 +49,7 @@ export default function ActionBar({
         disabled={targetEmail == null}
         onClick={(e) => handleLike()}
       >
-        <FaHeart size={40}/>
+        <FaHeart/>
       </Button>
     </div>
   )
