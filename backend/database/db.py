@@ -95,6 +95,7 @@ class Mentor(db.Model):
     offers = db.Column(db.ARRAY(db.String(100)), nullable=False)
     concentration = db.Column(db.ARRAY(db.String(100)), nullable=False)
     company_id = db.Column(db.Integer, nullable=False)
+    role = db.Column(db.String(100), nullable=False)
 
     # Foreign key to TindeeUser
     user = db.relationship('TindeeUser', back_populates='mentor')
@@ -119,7 +120,7 @@ class Mentor(db.Model):
             raise Exception('Other')
 
     @staticmethod
-    def updateMentor(mentorEmail, exp_years, offers, concentration, company_id):
+    def updateMentor(mentorEmail, exp_years, offers, concentration, role, company_id):
         mentor = Mentor.query.filter_by(email=mentorEmail).first()
         if (mentor is None):
             return Mentor.insertMentor(mentorEmail, exp_years, offers, concentration, company_id)
