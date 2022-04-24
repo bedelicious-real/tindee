@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 import uuid as uid
+from sqlalchemy.orm import backref as bf
 
 db = SQLAlchemy()
 
@@ -94,11 +95,16 @@ class Mentor(db.Model):
     exp_years = db.Column(db.Integer, nullable=False)
     offers = db.Column(db.ARRAY(db.String(100)), nullable=False)
     concentration = db.Column(db.ARRAY(db.String(100)), nullable=False)
-    company_id = db.Column(db.Integer, nullable=False)
     role = db.Column(db.String(100), nullable=False)
+    company_id = db.Column(db.Integer, ForeignKey(
+        'company.company_id'), nullable=False)
 
     # Foreign key to TindeeUser
     user = db.relationship('TindeeUser', back_populates='mentor')
+
+    # Foreign key to Company
+    user = db.relationship('Company', backref=bf(
+        'company', uselist=False), foreign_keys='[mentor.company_id]')
 
     def __init__(self, email, exp_years, offers, concentration, company_id):
         self.email = email
@@ -125,10 +131,14 @@ class Mentor(db.Model):
         if (mentor is None):
             return Mentor.insertMentor(mentorEmail, exp_years, offers, concentration, company_id)
         else:
-            mentor.exp_years = exp_years
-            mentor.offers = offers
-            mentor.concentration = concentration
-            mentor.company_id = company_id
+            if (exp_years is not None):
+                mentor.exp_years = exp_years
+            if (offers is not None):
+                mentor.offers = offers
+            if (concentration is not None):
+                mentor.concentration = concentration
+            if (company_id is not None):
+                mentor.company_id = company_id
             try:
                 db.session.commit()
                 return mentorEmail
@@ -147,6 +157,10 @@ class Mentor(db.Model):
                 'offers': mentor.offers, 'concentration': mentor.concentration,
                 'company_id': mentor.company_id}
 
+    @staticmethod
+    def isMentor(mentorEmail):
+        mentor = Mentor.query.filter_by(email=mentorEmail).first()
+        return mentor is not None
 # Mentee user of Tindee
 
 
@@ -188,10 +202,14 @@ class Mentee(db.Model):
         if (mentee is None):
             return Mentee.insertMentee(menteeEmail, organization, full_time_status, edu_level, description)
         else:
-            mentee.organization = organization
-            mentee.full_time_status = full_time_status
-            mentee.edu_level = edu_level
-            mentee.description = description
+            if (organization is not None):
+                mentee.organization = organization
+            if (full_time_status is not None):
+                mentee.full_time_status = full_time_status
+            if (edu_level is not None):
+                mentee.edu_level = edu_level
+            if (description is not None):
+                mentee.description = description
             try:
                 db.session.commit()
                 return menteeEmail
@@ -209,3 +227,8 @@ class Mentee(db.Model):
                 'image_url': mentee.image_url, 'organization': mentee.organization,
                 'full_time_status': mentee.full_time_status, 'edu_level': mentee.edu_level,
                 'description': mentee.description}
+
+    @staticmethod
+    def isMentee(menteeEmail):
+        mentee = Mentee.query.filter_by(email=menteeEmail).first()
+        return mentee is not None
