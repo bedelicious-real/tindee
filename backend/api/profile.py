@@ -84,6 +84,7 @@ def get_profile(uuid, email):
                 'first-name': mentor_info['first_name'],
                 'last-name': mentor_info['last_name'],
                 'image-url': mentor_info['image_url'],
+                'years': mentor_info['exp_years'],
                 'offers': mentor_info['offers'],
                 'concentration': mentor_info['concentration'],
                 'organization': company_info['name']   # please edit

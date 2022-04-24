@@ -4,6 +4,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import ARRAY
 db = SQLAlchemy()
 # from database.work import Job, Company
 import uuid as uid
@@ -96,8 +97,8 @@ class Mentor(db.Model):
     email = db.Column(db.String(50), ForeignKey(
         'tindeeUser.email'), primary_key=True, nullable=False)
     exp_years = db.Column(db.Integer, nullable=False)
-    offers = db.Column(db.ARRAY(db.String(100)), nullable=False)
-    concentration = db.Column(db.ARRAY(db.String(100)), nullable=False)
+    offers = db.Column(ARRAY(db.String(100)), nullable=False)
+    concentration = db.Column(ARRAY(db.String(100)), nullable=False)
     role = db.Column(db.String(100), nullable=False)
     company_id = db.Column(UUID(as_uuid=True), ForeignKey(
         'company.company_id'), nullable=False)
