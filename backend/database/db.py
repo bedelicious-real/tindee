@@ -363,7 +363,6 @@ class Company(db.Model):
     @staticmethod
     def companyInfo(id):
         company = Company.query.filter_by(company_id=id).first()
-        print(id)
         if (company is None):
             raise Exception('Nonexistent')
         return {'company_id': company.company_id, 'name': company.name,
