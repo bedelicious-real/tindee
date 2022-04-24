@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from flask import Blueprint, request, jsonify
 from api.middleware_auth import token_required
+from database.db import Company
 from database.search import Search
 
 mentors = Blueprint('mentors', __name__)
@@ -23,6 +24,19 @@ def search_mentors(uuid, email):
         elif key == 'concentration':
             engine = engine.search_by_concentrations(val)
     
-    print(engine.result())
+    result = engine.result()
+    mentors = []
+    for ele in result:
+        company_info = Company.companyInfo(ele['company_id'])
+        mentors.append({
+            'email': ele['email'],
+            'first-name': ele['first_name'],
+            'last-name': ele['last_name'],
+            'image-url': ele['image_url'],
+            'years': ele['exp_years'],
+            'offers': ele['offers'],
+            'concentration': ele['concentration'],
+            'organization': company_info['name']
+        })
 
-    return jsonify('OK'), 200
+    return jsonify(mentors), 200
