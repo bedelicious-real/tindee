@@ -23,6 +23,9 @@ export default function ActionBar({
     .then(res => res.json())
     .then(data => {
       console.log(data);
+      if (data === "OK"){
+        toastr['success']("You are matched with " + candidate['first-name'] + " " + candidate['last-name'],"It's a match!!!")
+      }
       removeTopCandidate();
     })
     .catch(err => console.error(err));
