@@ -1,12 +1,14 @@
+import email
 from sqlite3 import IntegrityError
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
+db = SQLAlchemy()
+# from database.work import Job, Company
 import uuid as uid
 from sqlalchemy.orm import backref as bf
 
-db = SQLAlchemy()
 
 # General user of Tindee
 
@@ -20,7 +22,7 @@ class TindeeUser(db.Model):
     hashpass = db.Column(db.String(500), nullable=False)
     image_url = db.Column(db.String(500))
     # relationship to mentor
-    mentor = db.relationship('Mentor', back_populates='user', uselist=False)
+    # mentor = db.relationship('Mentor', back_populates='user', uselist=False)
     # relationship to mentee
     mentee = db.relationship('Mentee', back_populates='user', uselist=False)
 
@@ -39,6 +41,7 @@ class TindeeUser(db.Model):
     @staticmethod
     def searchUUID(findEmail):
         user = TindeeUser.query.filter_by(email=findEmail).first()
+        print("HiHi")
         return None if user == None else str(user.uuid)
 
     @staticmethod
@@ -100,36 +103,40 @@ class Mentor(db.Model):
         'company.company_id'), nullable=False)
 
     # Foreign key to TindeeUser
-    user = db.relationship('TindeeUser', back_populates='mentor')
+    user = db.relationship('TindeeUser', backref=bf(
+        'mentor', uselist=False), foreign_keys='[Mentor.email]')
 
     # Foreign key to Company
     user = db.relationship('Company', backref=bf(
-        'company', uselist=False), foreign_keys='[mentor.company_id]')
+        'mentor', uselist=False), foreign_keys='[Mentor.company_id]')
 
-    def __init__(self, email, exp_years, offers, concentration, company_id):
+    def __init__(self, email, exp_years, offers, concentration, role, company_id):
         self.email = email
         self.exp_years = exp_years
         self.offers = offers
         self.concentration = concentration
+        self.role = role
         self.company_id = company_id
 
     @staticmethod
-    def insertMentor(email, exp_years, offers, concentration, company_id):
-        newMentor = Mentor(email, exp_years, offers, concentration, company_id)
+    def insertMentor(email, exp_years, offers, concentration, role, company_id):
+        newMentor = Mentor(email, exp_years, offers, concentration, role, company_id)
         db.session.add(newMentor)
         try:
             db.session.commit()
             return email
         except IntegrityError as integrity:
+            print(integrity)
             raise Exception('Integrity Vioalation')
         except Exception as e:
+            print(e)
             raise Exception('Other')
 
     @staticmethod
     def updateMentor(mentorEmail, exp_years, offers, concentration, role, company_id):
         mentor = Mentor.query.filter_by(email=mentorEmail).first()
         if (mentor is None):
-            return Mentor.insertMentor(mentorEmail, exp_years, offers, concentration, company_id)
+            return Mentor.insertMentor(mentorEmail, exp_years, offers, concentration, role, company_id)
         else:
             if (exp_years is not None):
                 mentor.exp_years = exp_years
@@ -139,6 +146,8 @@ class Mentor(db.Model):
                 mentor.concentration = concentration
             if (company_id is not None):
                 mentor.company_id = company_id
+            if (role is not None):
+                mentor.role = role
             try:
                 db.session.commit()
                 return mentorEmail
@@ -152,8 +161,8 @@ class Mentor(db.Model):
         mentor = Mentor.query.filter_by(email=mentorEmail).first()
         if (mentor is None):
             raise Exception('Nonexistent')
-        return {'first_name': mentor.first_name, 'last_name': mentor.last_name,
-                'image_url': mentor.image_url, 'exp_years': mentor.exp_years,
+        return {'first_name': mentor.user.first_name, 'last_name': mentor.user.last_name,
+                'image_url': mentor.user.image_url, 'exp_years': mentor.exp_years,
                 'offers': mentor.offers, 'concentration': mentor.concentration,
                 'company_id': mentor.company_id}
 
@@ -214,8 +223,10 @@ class Mentee(db.Model):
                 db.session.commit()
                 return menteeEmail
             except IntegrityError as integrity:
+                print(integrity)
                 raise Exception('Integrity Vioalation')
             except Exception as e:
+                print(e)
                 raise Exception('Other')
 
     @staticmethod
@@ -223,8 +234,8 @@ class Mentee(db.Model):
         mentee = Mentee.query.filter_by(email=menteeEmail).first()
         if (mentee is None):
             raise Exception('Nonexistent')
-        return {'first_name': mentee.first_name, 'last_name': mentee.last_name,
-                'image_url': mentee.image_url, 'organization': mentee.organization,
+        return {'first_name': mentee.user.first_name, 'last_name': mentee.user.last_name,
+                'image_url': mentee.user.image_url, 'organization': mentee.organization,
                 'full_time_status': mentee.full_time_status, 'edu_level': mentee.edu_level,
                 'description': mentee.description}
 
@@ -232,3 +243,128 @@ class Mentee(db.Model):
     def isMentee(menteeEmail):
         mentee = Mentee.query.filter_by(email=menteeEmail).first()
         return mentee is not None
+
+class Job(db.Model):
+    __tablename__ = 'job'
+    email = db.Column(db.String(50), db.ForeignKey(
+        'tindeeUser.email'), primary_key=True, nullable=False)
+    job_name = db.Column(db.String(100), primary_key=True, nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+    annual_salary = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
+
+    user = db.relationship('TindeeUser', backref=bf(
+        'job', uselist=False), foreign_keys='[Job.email]')
+
+    def __init__(self, email, job_name, location, annual_salary, description):
+        self.email = email
+        self.job_name = job_name
+        self.location = location
+        self.annual_salary = annual_salary
+        self.description = description
+
+    @staticmethod
+    def insertJob(email, job_name, location, annual_salary, description):
+        newJob = Job(email, job_name, location, annual_salary, description)
+        db.session.add(newJob)
+        try:
+            db.session.commit()
+            return True
+        except IntegrityError as ie:
+            print(ie)
+            return False
+        except Exception as e:
+            print(e)
+            return False
+
+    @staticmethod
+    def updateJob(mentor_email, mentor_job_name, location, annual_salary, description):
+        job = Job.query.filter_by(email=mentor_email, job_name=mentor_job_name)
+        if (job is None):
+            return Job.insertJob(mentor_email, mentor_job_name, location, annual_salary, description)
+        if (location is not None):
+            job.location = location
+        if (annual_salary is not None):
+            job.annual_salary = annual_salary
+        if (description is not None):
+            job.description = description
+        try:
+            db.session.commit()
+            return True
+        except IntegrityError as ie:
+            print(ie)
+            return False
+        except Exception as e:
+            print(e)
+            return False
+
+    @staticmethod
+    def deleteJob(mentor_email, mentor_job_name):
+        job = Job.query.filter_by(email=mentor_email, job_name=mentor_job_name)
+        db.session.delete(job)
+        try:
+            db.session.commit()
+            return True
+        except Exception as e:
+            print(e)
+            return False
+
+    @staticmethod
+    def jobInfo(mentor_email, mentor_job_name):
+        job = Job.query.filter_by(
+            email=mentor_email, job_name=mentor_job_name).first()
+        if (job is None):
+            raise Exception('Nonexistent')
+        return {'email': job.email, 'job_name': job.job_name,
+                'location': job.location, 'annual_salary': job.annual_salary,
+                'description': job.description}
+
+
+class Company(db.Model):
+    __tablename__ = 'company'
+    company_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
+
+    def __init__(self, company_id, name, description):
+        self.company_id = company_id
+        self.name = name
+        self.description = description
+
+    @staticmethod
+    def insertCompany(company_id, name, description):
+        newCompany = Company(company_id, name, description)
+        db.session.add(newCompany)
+        try:
+            db.session.commit()
+            return True
+        except IntegrityError as ie:
+            print(ie)
+            return False
+        except Exception as e:
+            print(e)
+            return False
+
+    @staticmethod
+    def updateCompany(id, name, description):
+        company = Company.query.filter_by(company_id=id)
+        if (company is None):
+            return Company.insertCompany(id, name, description)
+        if (name is not None):
+            company.name = name
+        if (description is not None):
+            company.description = description
+        try:
+            db.session.commit()
+            return True
+        except Exception as e:
+            print(e)
+            return False
+
+    @staticmethod
+    def companyInfo(id):
+        company = Company.query.filter_by(company_id=id)
+        if (company is None):
+            raise Exception('Nonexistent')
+        return {'company_id': company.company_id, 'name': company.name,
+                'description': company.description}

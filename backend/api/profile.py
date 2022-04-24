@@ -38,16 +38,16 @@ def upsert_profile(uuid, email):
     print(uuid, email)
     data = request.get_json()
     Logging.print(data)
-    is_mentor = request.args.get('mentor', default=False, type=bool)
+    is_mentor = request.args.get('mentor', default=False, type=str)
     try:
-        if is_mentor:
+        if is_mentor.lower() == 'true':
             exp_years = data['years']               # int
             offers = data['offers']                 # array
             concentration = data['concentrations']  # array
             role = data['role']                     # str
             company_name = data['organization']     # str
             Mentor.updateMentor(
-                email, exp_years, offers, concentration, role, company_name
+                email, exp_years, offers, concentration, role, 1
             )
         else:
             fulltime_status = data['status']        # str
@@ -66,9 +66,9 @@ def upsert_profile(uuid, email):
 @token_required
 def get_profile(uuid, email):
     # user_info = TindeeUser.userInfo(uuid)
-    is_mentor = request.args.get('mentor', default=False, type=bool)
+    is_mentor = request.args.get('mentor', default=False, type=str)
     try:
-        if is_mentor:
+        if is_mentor.lower() == 'true':
             mentor_info = Mentor.mentorInfo(email)
             return jsonify({
                 'email': email,
