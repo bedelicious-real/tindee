@@ -95,9 +95,9 @@ def like(uuid, email):
         response &= Like.insertLike(email, target_email)
 
         if response and Like.isMatch(email, target_email):
-            if Mentor.isMentor(receiver): 
-                email, receiver = receiver, email
-            response &= Match.insertMatch(email, receiver)
+            if Mentor.isMentor(target_email): 
+                email, target_email = target_email, email
+            response &= Match.insertMatch(email, target_email)
             matched = True
         
         if response == False:
