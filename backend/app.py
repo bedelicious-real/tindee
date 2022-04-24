@@ -4,6 +4,7 @@ from api.user import user
 from api.profile import profile
 from api.matches import matches
 from database.db import db
+# from database.match import db as match_db
 
 from flask_cors import CORS
 
@@ -16,6 +17,7 @@ app.register_blueprint(profile, url_prefix='/profile')
 app.register_blueprint(matches, url_prefix='/matches')
 
 db.init_app(app)
+# match_db.init_app(app)
 app.app_context().push()
 # db.drop_all()
 # db.create_all()
