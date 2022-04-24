@@ -32,3 +32,6 @@ class Search(db.Model):
             self.searcher = self.searcher.filter_by(
                 Mentor.concentration.contains(expected_concentrations))
         return self
+
+    def result(self):
+        return self.searcher.all()
