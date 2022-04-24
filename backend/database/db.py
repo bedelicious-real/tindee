@@ -99,7 +99,7 @@ class Mentor(db.Model):
     offers = db.Column(db.ARRAY(db.String(100)), nullable=False)
     concentration = db.Column(db.ARRAY(db.String(100)), nullable=False)
     role = db.Column(db.String(100), nullable=False)
-    company_id = db.Column(db.Integer, ForeignKey(
+    company_id = db.Column(UUID(as_uuid=True), ForeignKey(
         'company.company_id'), nullable=False)
 
     # Foreign key to TindeeUser
@@ -107,7 +107,7 @@ class Mentor(db.Model):
         'mentor', uselist=False), foreign_keys='[Mentor.email]')
 
     # Foreign key to Company
-    user = db.relationship('Company', backref=bf(
+    company = db.relationship('Company', backref=bf(
         'mentor', uselist=False), foreign_keys='[Mentor.company_id]')
 
     def __init__(self, email, exp_years, offers, concentration, role, company_id):
@@ -322,18 +322,17 @@ class Job(db.Model):
 
 class Company(db.Model):
     __tablename__ = 'company'
-    company_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    company_id = db.Column(UUID(as_uuid=True), primary_key=True, default=uid.uuid4)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(1000), nullable=False)
 
-    def __init__(self, company_id, name, description):
-        self.company_id = company_id
+    def __init__(self, name, description):
         self.name = name
         self.description = description
 
     @staticmethod
-    def insertCompany(company_id, name, description):
-        newCompany = Company(company_id, name, description)
+    def insertCompany(name, description):
+        newCompany = Company(name, description)
         db.session.add(newCompany)
         try:
             db.session.commit()
@@ -363,8 +362,16 @@ class Company(db.Model):
 
     @staticmethod
     def companyInfo(id):
-        company = Company.query.filter_by(company_id=id)
+        company = Company.query.filter_by(company_id=id).first()
+        print(id)
         if (company is None):
             raise Exception('Nonexistent')
         return {'company_id': company.company_id, 'name': company.name,
                 'description': company.description}
+
+    @staticmethod
+    def companyID(companyName):
+        company = Company.query.filter_by(name=companyName).first()
+        if (company is None):
+            raise Exception('Nonexistent')
+        return company.company_id

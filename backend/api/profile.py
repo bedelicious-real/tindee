@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from flask import Blueprint, request, jsonify
 from api.middleware_auth import token_required
 from api.gcp import upload_to_gcp
-from database.db import TindeeUser, Mentee, Mentor
+from database.db import Company, TindeeUser, Mentee, Mentor
 from helpers.logging import Logging
 
 load_dotenv()
@@ -46,8 +46,16 @@ def upsert_profile(uuid, email):
             concentration = data['concentrations']  # array
             role = data['role']                     # str
             company_name = data['organization']     # str
+            try:
+                company_id = Company.companyID(company_name)
+            except Exception as err:
+                print(str(err), err)
+                if str(err) == 'Nonexistent' and Company.insertCompany(company_name, ''):
+                    company_id = Company.companyID(company_name)
+                else:
+                    return jsonify("We're not OK"), 500
             Mentor.updateMentor(
-                email, exp_years, offers, concentration, role, 1
+                email, exp_years, offers, concentration, role, company_id
             )
         else:
             fulltime_status = data['status']        # str
@@ -70,6 +78,7 @@ def get_profile(uuid, email):
     try:
         if is_mentor.lower() == 'true':
             mentor_info = Mentor.mentorInfo(email)
+            company_info = Company.companyInfo(mentor_info['company_id'])
             return jsonify({
                 'email': email,
                 'first-name': mentor_info['first_name'],
@@ -77,7 +86,7 @@ def get_profile(uuid, email):
                 'image-url': mentor_info['image_url'],
                 'offers': mentor_info['offers'],
                 'concentration': mentor_info['concentration'],
-                'organization': mentor_info['company_id']   # please edit
+                'organization': company_info['name']   # please edit
             }), 200
         else:
             mentee_info = Mentee.menteeInfo(email)
