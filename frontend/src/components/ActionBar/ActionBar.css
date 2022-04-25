@@ -1,0 +1,28 @@
+.rounded-circle{
+    background-color: white;
+    margin-left: 10px;
+    border: none;
+    align-items: "center";
+}
+.dislike{
+    color: orange;
+    height: 50px;
+    width: 50px;
+}
+
+.like{
+    color: purple;
+    height: 50px;
+    width: 50px;
+}
+
+.superlike{
+    background-color:red;
+    color:white;
+    height: 70px;
+    width: 70px;
+}
+
+.actionBar{
+    margin-bottom: 20px;
+}
