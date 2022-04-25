@@ -18,26 +18,7 @@ const formItemLayout = {
 };
 
 
-function MentorProfile() {
-  const onFinish = (form) => {
-    console.log('Received values of form: ', form);
-    const token = window.sessionStorage.getItem('token');
-    fetch(`${process.env.REACT_APP_BACKEND_HOST}/profile?mentor=true`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify(form),
-
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-    })
-  };
-
-
+function MentorProfile({ onFinish }) {
     return (
     <div className='editprofile_page' >
         <h1>Edit Your Profile</h1>
@@ -75,8 +56,8 @@ function MentorProfile() {
               label="Organization/Company"
               rules={[
                   {
-                      required: true,
-                      message: 'Please input your organization or company!',
+                    required: true,
+                    message: 'Please input your organization or company!',
                   },
               ]}
           >
@@ -150,7 +131,7 @@ function MentorProfile() {
             }}
           >
             <Button className="big_button" htmlType="submit">
-              SUBMIT
+              UPDATE PROFILE
             </Button>
           </Form.Item>
         </Form>
@@ -160,5 +141,5 @@ function MentorProfile() {
  
 export default MentorProfile;
 
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(<MentorProfile/>, rootElement);
+const rootElement = document.getElementById("root");
+ReactDOM.render(<MentorProfile/>, rootElement);
