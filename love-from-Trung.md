@@ -6,13 +6,15 @@ From Trung with love :green_heart:
 1. Requirements: Python (version 3.x), pip.
 2. Pull `master` branch & `cd backend`
 3. Run `python -m venv ./venv`
-4. Run `pip install -r requirements.txt`
-5. Make sure `.env` & `gcp-key.json` exist in `./backend/` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <-- **[IMPORTANT]**
+4. Run `source venv/bin/activate`
+5. Run `pip install -r requirements.txt`
+6. Make sure `.env` & `gcp-key.json` exist in `./backend/` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <-- **[IMPORTANT]**
 
 ### <u>Run backend</u>
 1. `cd backend`
-2. `flask run --port=2020`
-3. Update the value of `REACT_APP_BACKEND_HOST` in `frontend/.env` to `http://127.0.0.1:2020`
+2. `source venv/bin/activate`
+3. `flask run --port=2020`
+4. Update the value of `REACT_APP_BACKEND_HOST` in `frontend/.env` to `http://127.0.0.1:2020`
 
 
 # API Reference
