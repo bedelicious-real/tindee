@@ -46,11 +46,12 @@ def upsert_profile(uuid, email):
             concentration = data['concentrations']  # array
             role = data['role']                     # str
             company_name = data['organization']     # str
+            company_description = data['org_description']   # str
             try:
                 company_id = Company.companyID(company_name)
             except Exception as err:
                 print(str(err), err)
-                if str(err) == 'Nonexistent' and Company.insertCompany(company_name, ''):
+                if str(err) == 'Nonexistent' and Company.insertCompany(company_name, company_description):
                     company_id = Company.companyID(company_name)
                 else:
                     return jsonify("We're not OK"), 500
