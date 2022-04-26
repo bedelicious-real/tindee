@@ -1,4 +1,5 @@
-Some info about Backend
+Some info about Backend. <br>
+From Trung with love :green_heart:
 
 # How to run backend
 ### <u>Installation</u>
