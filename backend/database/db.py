@@ -167,6 +167,19 @@ class Mentor(db.Model):
                 'offers': mentor.offers, 'concentration': mentor.concentration,
                 'company_id': mentor.company_id}
 
+    
+    @staticmethod
+    def get_all_mentors():
+        mentors = Mentor.query.all()
+        result = []
+        for mentor in mentors:
+            result.append({'first_name': mentor.user.first_name, 'last_name': mentor.user.last_name,
+                'image_url': mentor.user.image_url, 'exp_years': mentor.exp_years,
+                'offers': mentor.offers, 'concentration': mentor.concentration,
+                'company_id': mentor.company_id, 'email': mentor.email})
+        return result
+
+
     @staticmethod
     def isMentor(mentorEmail):
         mentor = Mentor.query.filter_by(email=mentorEmail).first()
@@ -239,6 +252,19 @@ class Mentee(db.Model):
                 'image_url': mentee.user.image_url, 'organization': mentee.organization,
                 'full_time_status': mentee.full_time_status, 'edu_level': mentee.edu_level,
                 'description': mentee.description}
+    
+
+    @staticmethod
+    def get_all_mentees():
+        mentees = Mentee.query.all()
+        result = []
+        for mentee in mentees:
+            result.append({'first_name': mentee.user.first_name, 'last_name': mentee.user.last_name,
+                'image_url': mentee.user.image_url, 'organization': mentee.organization,
+                'full_time_status': mentee.full_time_status, 'edu_level': mentee.edu_level,
+                'description': mentee.description, 'email': mentee.email})
+        return result
+
 
     @staticmethod
     def isMentee(menteeEmail):
