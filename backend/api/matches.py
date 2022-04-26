@@ -19,16 +19,8 @@ SHORTENED_LIST_LEN = 20
 @matches.route('/mentors', methods=['GET'])
 @token_required
 def get_mentors_list(uuid, email):
-    is_full = request.args.get('full', default=False, type=bool)
-    # dummy_mentor = {
-    #     'email': 'a@x.com',
-    #     'first-name': 'First',
-    #     'last-name': 'Last',
-    #     'image-url': 'https://storage.googleapis.com/tindee/avatar/7f04ec92b8198cd9b36d8d9a6f343476.png',
-    #     'organization': 'Bkav',
-    #     'concentration': ['Backend', 'Frontend'],
-    #     'offers': ['Mock Interview', 'Love']
-    # }
+    is_full = request.args.get('full', default='false', type=str)
+    is_full = is_full.lower() == 'true'
     email_lists = Match.getMentors(email)
     mentors = []
     for mentor_email in email_lists:
@@ -42,6 +34,7 @@ def get_mentors_list(uuid, email):
             'first-name': info['first_name'],
             'last-name': info['last_name'],
             'image-url': info['image_url'],
+            'years': info['exp_years'],
             'organization': company_info['name'],
             'offers': info['offers'],
             'concentration': info['concentration'],
@@ -53,17 +46,8 @@ def get_mentors_list(uuid, email):
 @matches.route('/mentees', methods=['GET'])
 @token_required
 def get_mentees_list(uuid, email):
-    is_full = request.args.get('full', default=False, type=bool)
-    # dummy_mentee = {
-    #     'email': 'a@x.com',
-    #     'first-name': 'First',
-    #     'last-name': 'Last',
-    #     'image-url': 'https://storage.googleapis.com/tindee/avatar/7f04ec92b8198cd9b36d8d9a6f343476.png',
-    #     'organization': 'Bkav',
-    #     'status': 'CEO',
-    #     'level': 'PhD',
-    #     'intro': 'Here is my intro. Thank you so much!'
-    # }
+    is_full = request.args.get('full', default='false', type=str)
+    is_full = is_full.lower() == 'true'
     email_lists = Match.getMentees(email)
     mentees = []
     for mentee_email in email_lists:

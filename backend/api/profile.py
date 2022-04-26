@@ -105,3 +105,54 @@ def get_profile(uuid, email):
     except Exception as err:
         Logging.print(err)
         return jsonify("We're not OK"), 500
+
+
+@profile.route('/mentors', methods=['GET'])
+@token_required
+def get_all_mentors(uuid, email):
+    mentors = []
+    try:
+        all_info = Mentor.get_all_mentors()
+        for mentor_info in all_info:
+            company_info = Company.companyInfo(mentor_info['company_id'])
+            mentors.append(
+                {
+                    'email': mentor_info['email'],
+                    'first-name': mentor_info['first_name'],
+                    'last-name': mentor_info['last_name'],
+                    'image-url': mentor_info['image_url'],
+                    'years': mentor_info['exp_years'],
+                    'offers': mentor_info['offers'],
+                    'concentration': mentor_info['concentration'],
+                    'organization': company_info['name']   # please edit
+                }
+            )
+    except Exception as err:
+        Logging.print(err)
+
+    return jsonify(mentors), 200
+
+
+@profile.route('/mentees', methods=['GET'])
+@token_required
+def get_all_mentees(uuid, email):
+    mentees = []
+    try:
+        all_info = Mentee.get_all_mentees()
+        for mentee_info in all_info:
+            mentees.append(
+                {
+                    'email': mentee_info['email'],
+                    'first-name': mentee_info['first_name'],
+                    'last-name': mentee_info['last_name'],
+                    'image-url': mentee_info['image_url'],
+                    'organization': mentee_info['organization'],
+                    'status': mentee_info['full_time_status'],
+                    'level': mentee_info['edu_level'],
+                    'intro': mentee_info['description']
+                }
+            )
+    except Exception as err:
+        Logging.print(err)
+
+    return jsonify(mentees), 200
