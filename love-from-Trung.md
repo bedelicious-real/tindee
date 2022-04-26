@@ -92,7 +92,31 @@ Some info about Backend
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
 
-2. Update/ Insert a profile (`/profile?mentor=true|false`)
+2. Get all mentors (`/profile/mentors`)
+    * Method: `GET`
+    * Authorization: `Bearer [token]`
+    * Response:
+        * `200`: 
+            ```json
+            [ { mentor_1 }, { mentor_2 }]
+            ```
+            *note: format of `mentor_1`... is the same as `GET /profile?mentor=true`
+        * `400`: `Token is expired` 
+        * `400`: `Cannot verify user`
+        * `500`: `We're not OK` 
+3. Get all mentees (`/profile/mentees`)
+    * Method: `GET`
+    * Authorization: `Bearer [token]`
+    * Response:
+        * `200`: 
+            ```json
+            [ { mentee_1 }, { mentee_2 }]
+            ```
+            *note: format of `mentee_1`... is the same as `GET /profile?mentor=false`
+        * `400`: `Token is expired` 
+        * `400`: `Cannot verify user`
+        * `500`: `We're not OK` 
+4. Update/ Insert a profile (`/profile?mentor=true|false`)
     * Method: `POST`
     * Authorization: `Bearer [token]`
     * Request body:
@@ -129,19 +153,21 @@ Some info about Backend
         * `400`: `Token is expired` 
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
-3. Get all mentors (`/profile/mentors`)
-4. Get all mentees (`/profile/mentees`)
+5. Update avatar (`/profile/avatar`)
+    * Method: `POST`
+    * Authorization: `Bearer [token]`
+    * Request body: a form containing image file
+    * Response:
+        * `200`: `OK`
+        * `400`: `Cannot read image`
+        * `500`: `We're not OK`
 
 ## Matches
 1. Mentee gets a list of matched mentors (`/matches/mentors?full=true|false`)
     * Method: `GET`
     * Authorization: `Bearer [token]`
     * Response:
-        * `200`: 
-            ```json
-            [ { mentor_1 }, { mentor_2 }]
-            ```
-            *note: format of `mentor_1`... is the same as `GET /profile?mentor=true`
+        * `200`: format is the same as `GET /profile/mentors`
         * `400`: `Token is expired` 
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
@@ -149,11 +175,7 @@ Some info about Backend
     * Method: `GET`
     * Authorization: `Bearer [token]`
     * Response:
-        * `200`: 
-            ```json
-            [ { mentee_1 }, { mentee_2 }]
-            ```
-            *note: format of `mentee_1`... is the same as `GET /profile?mentor=false`
+        * `200`: format is the same as `GET /profile/mentees`
         * `400`: `Token is expired` 
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
@@ -182,7 +204,7 @@ Some info about Backend
     * Authorization: `Bearer [token]`
     * Request body: 
         ```json
-        {
+        [
             {
                 "type": "first-name",
                 "value": "some value"
@@ -196,7 +218,7 @@ Some info about Backend
                 "value": ["Field 1", "Field 2", "Field 3"]
             }, 
             ...
-        }
+        ]
         ```
         * note: there are 4 types: `first-name`, `last-name`, `offers`, `concentration`
     * Response:
