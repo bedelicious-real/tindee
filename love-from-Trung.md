@@ -1,14 +1,14 @@
 Some info about Backend
 
 # How to run backend
-### Installation
+### <u>Installation</u>
 1. Requirements: Python (version 3.x), pip.
 2. Pull `master` branch & `cd backend`
 3. Run `python -m venv ./venv`
 4. Run `pip install -r requirements.txt`
-5. Make sure `.env` & `gcp-key.json` exist [IMPORTANT]
+5. Make sure `.env` & `gcp-key.json` exist in `./backend/` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <-- **[IMPORTANT]**
 
-### Run backend
+### <u>Run backend</u>
 1. `cd backend`
 2. `flask run --port=2020`
 3. Update the value of `REACT_APP_BACKEND_HOST` in `frontend/.env` to `http://127.0.0.1:2020`
@@ -16,7 +16,7 @@ Some info about Backend
 
 # API Reference
 ## **Login/Signup**
-1. Create new user (`/user`)
+1. <u>Create new user (`/user`)</u>
     * Method: `POST`
     * Request body:
         ```json
@@ -33,7 +33,7 @@ Some info about Backend
         * `500`: `We're not OK` 
 
 
-2. Login (`/user/session`)
+2. <u>Login (`/user/session`)</u>
     * Method: `POST`
     * Request body:
         ```[json]
@@ -49,7 +49,7 @@ Some info about Backend
 
 
 ## **Profile**
-1. Get a profile (`/profile?mentor=true|false`)
+1. <u>Get a profile (`/profile?mentor=true|false`)</u>
     * Method: `GET`
     * Authorization: `Bearer [token]`
     * Response:
@@ -85,7 +85,7 @@ Some info about Backend
         * `500`: `We're not OK` 
 
 
-2. Get all mentors (`/profile/mentors`)
+2. <u>Get all mentors (`/profile/mentors`)</u>
     * Method: `GET`
     * Authorization: `Bearer [token]`
     * Response:
@@ -99,7 +99,7 @@ Some info about Backend
         * `500`: `We're not OK` 
 
         
-3. Get all mentees (`/profile/mentees`)
+3. <u>Get all mentees (`/profile/mentees`)</u>
     * Method: `GET`
     * Authorization: `Bearer [token]`
     * Response:
@@ -113,7 +113,7 @@ Some info about Backend
         * `500`: `We're not OK` 
 
 
-4. Update/ Insert a profile (`/profile?mentor=true|false`)
+4. <u>Update/ Insert a profile (`/profile?mentor=true|false`)</u>
     * Method: `POST`
     * Authorization: `Bearer [token]`
     * Request body:
@@ -151,7 +151,7 @@ Some info about Backend
         * `500`: `We're not OK` 
 
 
-5. Update avatar (`/profile/avatar`)
+5. <u>Update avatar (`/profile/avatar`)</u>
     * Method: `POST`
     * Authorization: `Bearer [token]`
     * Request body: a form containing image file
@@ -162,7 +162,7 @@ Some info about Backend
 
 
 ## **Matches**
-1. Mentee gets a list of matched mentors (`/matches/mentors?full=true|false`)
+1. <u>Mentee gets a list of matched mentors (`/matches/mentors?full=true|false`)</u>
     * Method: `GET`
     * Authorization: `Bearer [token]`
     * Response:
@@ -170,7 +170,7 @@ Some info about Backend
         * `400`: `Token is expired` 
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
-2. Mentor gets a list of matched mentees (`/matches/mentees?full=true|false`)
+2. <u>Mentor gets a list of matched mentees (`/matches/mentees?full=true|false`)</u>
     * Method: `GET`
     * Authorization: `Bearer [token]`
     * Response:
@@ -178,7 +178,7 @@ Some info about Backend
         * `400`: `Token is expired` 
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
-3. User 1 likes user 2 (`/matches`)
+3. <u>User 1 likes user 2 (`/matches`)</u>
     * Method: `POST`
     * Authorization: `Bearer [token]`
     * Response:
@@ -188,7 +188,7 @@ Some info about Backend
         * `400`: `Token is expired` 
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
-4. User 1 unmatches/ unlikes user 2 (`/matches`)
+4. <u>User 1 unmatches/ unlikes user 2 (`/matches`)</u>
     * Method: `DELETE`
     * Authorization: `Bearer [token]`
     * Response:
@@ -198,7 +198,7 @@ Some info about Backend
         * `500`: `We're not OK` 
 
 ## **Search**
-1. Mentees search mentors (`/mentors`)
+1. <u>Mentees search mentors (`/mentors`)</u>
     * Method: `POST`
     * Authorization: `Bearer [token]`
     * Request body: 
@@ -227,7 +227,7 @@ Some info about Backend
         * `500`: `We're not OK` 
 
 ## **Company**
-1. Get company info (`/company?name=someCompanyName`)
+1. <u>Get company info (`/company?name=someCompanyName`)</u>
     * Method: `GET`
     * Response:
         * `200`: 
