@@ -15,12 +15,10 @@ Some info about Backend
 
 
 # API Reference
-## Login/Signup
+## **Login/Signup**
 1. Create new user (`/user`)
-
     * Method: `POST`
     * Request body:
-
         ```json
         {
             "email": "a@x.com",
@@ -29,39 +27,33 @@ Some info about Backend
             "pwd": "Password"
         }
         ```
-
     * Response:
-    
         * `200`: a string as token for user
         * `400`: `User already existed` 
         * `500`: `We're not OK` 
 
-2. Login (`/user/session`)
 
+2. Login (`/user/session`)
     * Method: `POST`
     * Request body:
-
         ```[json]
         {
             "email": "a@x.com",
             "pwd": "Password"
         }
         ```
-
     * Response:
-    
         * `200`: a string as token for user
         * `400`: `Wrong password` 
         * `500`: `We're not OK` 
 
-## Profile
+
+## **Profile**
 1. Get a profile (`/profile?mentor=true|false`)
     * Method: `GET`
     * Authorization: `Bearer [token]`
     * Response:
-
         * `200`: 
-        
             if `mentor=true`:
             ```json
             {
@@ -92,6 +84,7 @@ Some info about Backend
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
 
+
 2. Get all mentors (`/profile/mentors`)
     * Method: `GET`
     * Authorization: `Bearer [token]`
@@ -104,6 +97,8 @@ Some info about Backend
         * `400`: `Token is expired` 
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
+
+        
 3. Get all mentees (`/profile/mentees`)
     * Method: `GET`
     * Authorization: `Bearer [token]`
@@ -116,11 +111,12 @@ Some info about Backend
         * `400`: `Token is expired` 
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
+
+
 4. Update/ Insert a profile (`/profile?mentor=true|false`)
     * Method: `POST`
     * Authorization: `Bearer [token]`
     * Request body:
-
         if `mentor=true`
         ```json
         {
@@ -153,6 +149,8 @@ Some info about Backend
         * `400`: `Token is expired` 
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
+
+
 5. Update avatar (`/profile/avatar`)
     * Method: `POST`
     * Authorization: `Bearer [token]`
@@ -162,7 +160,8 @@ Some info about Backend
         * `400`: `Cannot read image`
         * `500`: `We're not OK`
 
-## Matches
+
+## **Matches**
 1. Mentee gets a list of matched mentors (`/matches/mentors?full=true|false`)
     * Method: `GET`
     * Authorization: `Bearer [token]`
@@ -198,7 +197,7 @@ Some info about Backend
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
 
-## Search
+## **Search**
 1. Mentees search mentors (`/mentors`)
     * Method: `POST`
     * Authorization: `Bearer [token]`
@@ -222,12 +221,12 @@ Some info about Backend
         ```
         * note: there are 4 types: `first-name`, `last-name`, `offers`, `concentration`
     * Response:
-        * `200`: the same as `GET /matches/mentors`
+        * `200`: format is the same as `GET /profile/mentors`
         * `400`: `Token is expired` 
         * `400`: `Cannot verify user`
         * `500`: `We're not OK` 
 
-## Company
+## **Company**
 1. Get company info (`/company?name=someCompanyName`)
     * Method: `GET`
     * Response:
