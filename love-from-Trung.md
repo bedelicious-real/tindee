@@ -13,8 +13,9 @@ From Trung with love :green_heart:
 ### <u>Run backend</u>
 1. `cd backend`
 2. `source venv/bin/activate`
-3. `flask run --port=2020`
-4. Update the value of `REACT_APP_BACKEND_HOST` in `frontend/.env` to `http://127.0.0.1:2020`
+3. run `export GOOGLE_APPLICATION_CREDENTIALS="path/to/file/gcp_key.json"`
+4. `flask run --port=2020`
+5. Update the value of `REACT_APP_BACKEND_HOST` in `frontend/.env` to `http://127.0.0.1:2020`
 
 
 # API Reference
