@@ -49,7 +49,7 @@ export default function ActionBar({
         disabled={targetEmail == null}
         onClick={(e) => handleLike()}
       >
-        <FaHeart size={40}/>
+        <FaHeart/>
       </Button>
     </div>
   )
