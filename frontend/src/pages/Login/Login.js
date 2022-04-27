@@ -53,7 +53,7 @@ function Login () {
                 <div className="login_logo">
                     <img src={logo} />
                     <span className="title"> tindee </span>
-                    <p> where <span className="extra_bold">MENTORS</span> and <span className="extra_bold">MENTEES</span> are meant to <span className="extra_bold">MEET</span> </p>
+                    <p className="intro"> where <span className="extra_bold">MENTORS</span> and <span className="extra_bold">MENTEES</span> are meant to <span className="extra_bold">MEET</span> </p>
                 </div>
                 <div className="login_auth_buttons">
                     <Form onSubmit={onSubmit}>
