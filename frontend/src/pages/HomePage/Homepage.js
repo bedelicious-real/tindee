@@ -31,6 +31,7 @@ export default function Homepage() {
 
     return (
         <div>
+            Hello World
             <Filter setFilteredMentors={setFilteredMentors}/>
             <div className="mentor-grid">
                 {filteredMentors.length > 0

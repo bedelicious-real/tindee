@@ -10,7 +10,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Swipe from './pages/Swipe/Swipe';
 import Info from './components/Info/Info';
-import Homepage from './pages/HomePage/HomePage';
+import Homepage from './pages/Homepage/Homepage';
 import Messages from './components/Message/Message';
 
 function App() {
