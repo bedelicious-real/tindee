@@ -4,6 +4,8 @@ import React, { Component, useContext, useState } from 'react';
 import { Form, Select, InputNumber, Button, Upload, Input } from 'antd';
 import './UserProfile.css';
 import UploadImage from './UploadImage';
+import {useNavigate} from 'react-router';
+
 
 const { Option } = Select;
 const formItemLayout = {

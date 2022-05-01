@@ -9,6 +9,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import { Spin } from 'antd';
 import { MenteeProfile, MentorProfile } from '../../components/UserProfile/index.js';
+import {useNavigate} from 'react-router';
 
 
 function Signup () {
@@ -20,6 +21,14 @@ function Signup () {
     const [loading, setLoading] = useState(false);
     const [next, setNext] = useState(false);
 
+    let navigate = useNavigate();
+    function searchPage(){
+        navigate('/search');
+    }
+
+    function swipePage(){
+        navigate('/swipe');
+    }
 
     const onMentorFinish = (form) => {
         console.log('Received values of form: ', form);
@@ -33,7 +42,7 @@ function Signup () {
         fetch(`${process.env.REACT_APP_BACKEND_HOST}/user`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify(object),
         })
@@ -53,12 +62,13 @@ function Signup () {
                 },
                 body: JSON.stringify(form),
             })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .then(setLoading(false))
+            .then(swipePage)
         })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-        })
-        .then(setLoading(false));
     };
 
     const onMenteeFinish = (form) => {
@@ -78,6 +88,7 @@ function Signup () {
             body: JSON.stringify(object),
         })
         .then(res => res.json())
+        .catch(err => console.log(err))
         .then(data => {
             console.log(data); // key for authorization: store it somewhere for later use
             window.sessionStorage.setItem('token', data);
@@ -85,7 +96,7 @@ function Signup () {
         })
         .then(() => {
             const token = window.sessionStorage.getItem('token');
-            fetch(`${process.env.REACT_APP_BACKEND_HOST}/profile?mentor=true`, {
+            fetch(`${process.env.REACT_APP_BACKEND_HOST}/profile?mentor=false`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,12 +104,13 @@ function Signup () {
                 },
                 body: JSON.stringify(form),
             })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .then(setLoading(false))
+            .then(searchPage)
         })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-        })
-        .then(setLoading(false));
     };
 
     return (
@@ -107,7 +119,7 @@ function Signup () {
                 <div className="signup_logo">
                     <img src={logo} />
                     <span className="title"> tindee </span>
-                    <p> where <span className="extra_bold">MENTORS</span> and <span className="extra_bold">MENTEES</span> are meant to <span className="extra_bold">MEET</span> </p>
+                    <p className='intro'> where <span className="extra_bold">MENTORS</span> and <span className="extra_bold">MENTEES</span> are meant to <span className="extra_bold">MEET</span> </p>
                 </div>
                 {!next 
                 ?

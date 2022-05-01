@@ -44,13 +44,13 @@ export default function Filter(){
 
     return (
         <div className="filter">
-            <TextField className="TextField" id="outlined-basic" variant="outlined" fullWidth label="Search Name"/>
+            <TextField className="TextField" id="outlined-basic" variant="filled" fullWidth label="Search Name"/>
             <br/> <br/>
             <Grid container>
                 <Grid item xs={5}>
                     <FormControl fullWidth>
                         <InputLabel id="offer">Offer</InputLabel>
-                        <Select labelId="offer" id="offer" value={offer} label="Offer" onChange={handleOffer} renderValue={(selected) => (
+                        <Select labelId="offer" id="offer" multiple value={offer} label="Offer" onChange={handleOffer} renderValue={(selected) => (
                             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                             {selected.map((value) => (
                                 <Chip key={value} label={value} />
@@ -94,7 +94,7 @@ export default function Filter(){
                 <Grid item xs={5}>
                     <FormControl fullWidth>
                         <InputLabel id="job">Job</InputLabel>
-                        <Select labelId="job" multiple id="job" value={job} label="job" onChange={handleJob} renderValue={(selected) => (
+                        <Select labelId="job" multiple id="job" value={job} label="job" variant="filled" onChange={handleJob} renderValue={(selected) => (
                             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                             {selected.map((value) => (
                                 <Chip key={value} label={value} />
@@ -113,7 +113,7 @@ export default function Filter(){
                 </Grid>
                 <Grid item xs={2}></Grid>
                 <Grid item xs={5}>
-                    <TextField className="company" id="outlined-basic" variant="outlined" fullWidth label="Company"/>
+                    <TextField className="company" id="outlined-basic" variant="filled" fullWidth label="Company"/>
                 </Grid>
             </Grid>
             <br/> <br/>
@@ -122,11 +122,13 @@ export default function Filter(){
                 <TextField
                     label="From"
                     type="number"
+                    variant="filled"
                 /> 
                 
                 <TextField
                     label="To"
                     type="number"
+                    variant="filled"
                 /> 
             </React.Fragment>
         </div>
