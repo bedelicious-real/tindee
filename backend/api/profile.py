@@ -38,7 +38,7 @@ def upsert_profile(uuid, email):
     print(uuid, email)
     data = request.get_json()
     Logging.print(data)
-    is_mentor = request.args.get('mentor', default=False, type=str)
+    is_mentor = request.args.get('mentor', default='false', type=str)
     try:
         if is_mentor.lower() == 'true':
             exp_years = data['years']               # int
@@ -76,7 +76,7 @@ def upsert_profile(uuid, email):
 @token_required
 def get_profile(uuid, email):
     # user_info = TindeeUser.userInfo(uuid)
-    is_mentor = request.args.get('mentor', default=False, type=str)
+    is_mentor = request.args.get('mentor', default='false', type=str)
     try:
         if is_mentor.lower() == 'true':
             mentor_info = Mentor.mentorInfo(email)
@@ -88,6 +88,7 @@ def get_profile(uuid, email):
                 'image-url': mentor_info['image_url'],
                 'years': mentor_info['exp_years'],
                 'offers': mentor_info['offers'],
+                'role': mentor_info['role'],
                 'concentration': mentor_info['concentration'],
                 'organization': company_info['name']   # please edit
             }), 200

@@ -165,7 +165,7 @@ class Mentor(db.Model):
         return {'first_name': mentor.user.first_name, 'last_name': mentor.user.last_name,
                 'image_url': mentor.user.image_url, 'exp_years': mentor.exp_years,
                 'offers': mentor.offers, 'concentration': mentor.concentration,
-                'company_id': mentor.company_id}
+                'company_id': mentor.company_id, 'role': mentor.role}
 
     
     @staticmethod
