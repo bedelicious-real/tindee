@@ -6,7 +6,7 @@ from flask import Blueprint, request, current_app, jsonify
 import bcrypt
 import os
 import jwt
-from database.db import TindeeUser
+from database.db import Mentee, Mentor, TindeeUser
 
 from flask_cors import CORS, cross_origin
 
@@ -86,3 +86,15 @@ def login():
     except Exception as err:
         print(err)
         return jsonify('We\'re not OK'), 500
+
+
+@user.route('/type', methods=['GET'])
+@cross_origin()
+def check_if_mentor_mentee():
+    email = request.args.get('email', default='', type=str)
+    if Mentor.isMentor(email):
+        return jsonify('mentor'), 200
+    if Mentee.isMentee(email):
+        return jsonify('mentee'), 200
+    
+    return jsonify('Not found'), 400
