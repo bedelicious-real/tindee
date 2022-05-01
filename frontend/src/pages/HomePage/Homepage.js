@@ -1,10 +1,11 @@
+import { useState } from "react";
 import Filter from "../../components/Filter/Filter";
-// import { MentorsGrid } from '../../components/Mentors/MentorsGrid';
+import MentorsGrid from "../../components/Mentors/MentorsGrid";
 
 export default function Homepage() {
 
     const [mentors, setMentors] = useState([]);
-    const [profilesFilter, setProfilesFilter] = useState([]);
+    const [filteredMentors, setFilteredMentors] = useState([]);
     const token = window.sessionStorage.getItem('token');
 
     const getMentors = () => {
@@ -30,11 +31,11 @@ export default function Homepage() {
 
     return (
         <div>
-            <Filter/>
+            <Filter setFilteredMentors={setFilteredMentors}/>
             <div className="mentor-grid">
-                {mentors.length > 0
-                    ? <MentorsGrid mentors={mentors}/>
-                    : <div></div>
+                {filteredMentors.length > 0
+                ? <MentorsGrid mentors={filteredMentors} />
+                : <MentorsGrid mentors={mentors} />
                 }
             </div>
         </div>
