@@ -18,7 +18,7 @@ const formItemLayout = {
 };
 
 
-function MentorProfile({ onFinish }) {
+function MentorProfile({ onFinish, profile }) {
     return (
     <div className='editprofile_page' >
         <h1>Edit Your Profile</h1>
@@ -27,6 +27,13 @@ function MentorProfile({ onFinish }) {
         </div>
         
         <Form
+          initialValues={{
+            role: profile.role,
+            organization: profile.organization,
+            years: profile.years,
+            concentrations: profile.concentrations,
+            offers: profile.offers
+          }}
           name="validate_other"
           {...formItemLayout}
           onFinish={onFinish}

@@ -10,7 +10,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Swipe from './pages/Swipe/Swipe';
 import Info from './components/Info/Info';
-import Filter from './components/Filter/Filter';
+import Homepage from './pages/HomePage/HomePage';
 import Messages from './components/Message/Message';
 
 function App() {
@@ -19,13 +19,12 @@ function App() {
     <div className="App">
         <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Login/>} />
+              <Route path="/" element={<Homepage/>} />
               <Route path="/login" element={<Login/>} />
               <Route path="/signup" element={<Signup/>} />
               <Route path="/editprofile" element={<EditProfile/>} />
               <Route path="/messages" element={<Messages/>} />
               <Route path="/swipe" element={<Swipe />} />
-              <Route path="/search" element={<Filter/>} />
             </Routes>
           </BrowserRouter>
     </div>

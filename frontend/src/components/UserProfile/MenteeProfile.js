@@ -19,7 +19,7 @@ const formItemLayout = {
     },
 };
 
-function MenteeProfile({ onFinish }) {
+function MenteeProfile({ onFinish, profile }) {
     return (
         <div className='editprofile_page' >
             <h1>Edit Your Profile</h1>
@@ -30,6 +30,12 @@ function MenteeProfile({ onFinish }) {
               name="validate_other"
               {...formItemLayout}
               onFinish={onFinish}
+              initialValues={{
+                organization: profile.organization,
+                status: profile.status,
+                level: profile.level,
+                intro: profile.intro
+              }}
             >
             <Form.Item
                 name="organization"
