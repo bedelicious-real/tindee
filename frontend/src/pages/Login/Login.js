@@ -6,6 +6,7 @@ import logo from "../../assets/hands-helping-solid.svg";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Spin } from 'antd';
+import {useNavigate} from 'react-router';
 
 
 function Login () {
@@ -21,6 +22,8 @@ function Login () {
         }
         setLoading(true);
     };
+
+    let navigate = useNavigate();
 
     const onSubmit = event => {
         event.preventDefault();
@@ -42,6 +45,22 @@ function Login () {
         .then(data => {
             window.sessionStorage.setItem('token', data);
 			window.sessionStorage.setItem('email', email);
+            fetch(`${process.env.REACT_APP_BACKEND_HOST}/user/type?email=` + email, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data === "mentee"){
+                    navigate('/search')
+                } 
+                else{
+                    navigate('/swipe')
+                }
+            })
+            .catch(err => console.log(err))
         })
         .then(setLoading(false))
     };
