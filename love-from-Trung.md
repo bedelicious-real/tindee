@@ -51,6 +51,11 @@ From Trung with love :green_heart:
         * `400`: `Wrong password` 
         * `500`: `We're not OK` 
 
+3. <u>Check if a user is mentor/mentee (`/user/type?email=abc@xyz.com`)</u>
+    * Method: `GET`
+    * Response:
+        * `200`: `mentor` or `mentee` if a user exists and registered as mentor/mentee
+        * `400`: `Not found` 
 
 ## **Profile**
 1. <u>Get a profile (`/profile?mentor=true|false`)</u>
