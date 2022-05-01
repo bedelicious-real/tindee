@@ -24,7 +24,6 @@ function Login () {
 
     const onSubmit = event => {
         event.preventDefault();
-        //setLoading(true);
         const object = {
             email: email,
             pwd: password,
