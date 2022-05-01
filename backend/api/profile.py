@@ -68,6 +68,7 @@ def upsert_profile(uuid, email):
             )
     except Exception as err:
         Logging.print(err)
+        return jsonify('We\'re not OK'), 500
     return jsonify('OK'), 200
 
 
@@ -129,6 +130,7 @@ def get_all_mentors(uuid, email):
             )
     except Exception as err:
         Logging.print(err)
+        return jsonify('We\'re not OK'), 500
 
     return jsonify(mentors), 200
 

@@ -12,7 +12,7 @@ def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         if 'Authorization' not in request.headers:
-            return "Token is missing", 400
+            return jsonify("Token is missing"), 400
         
         try:
             token = request.headers['Authorization'].split(' ')[1]
