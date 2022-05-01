@@ -1,3 +1,4 @@
+from crypt import methods
 from datetime import timezone
 import datetime
 from dotenv import load_dotenv
@@ -7,7 +8,7 @@ import os
 import jwt
 from database.db import TindeeUser
 
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 user = Blueprint('user', __name__)
 load_dotenv()
@@ -16,8 +17,12 @@ load_dotenv()
 SALT_ROUNDS = int(os.environ.get('SALT_ROUNDS'))
 JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
 
+@user.route('', methods=['GET'])
+def test():
+    return jsonify('OK'), 200
 
 @user.route('', methods=['POST'])
+@cross_origin()
 def create_new_user():
     data = request.get_json()
     if data is None:
@@ -52,6 +57,7 @@ def create_new_user():
 
 
 @user.route('/session', methods=['POST'])
+@cross_origin()
 def login():
     data = request.get_json()
     print(data)
