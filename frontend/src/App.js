@@ -25,6 +25,7 @@ function App() {
               <Route path="/editprofile" element={<EditProfile/>} />
               <Route path="/messages" element={<Messages/>} />
               <Route path="/swipe" element={<Swipe />} />
+              <Route path="/search" element={<Filter/>} />
             </Routes>
           </BrowserRouter>
     </div>
