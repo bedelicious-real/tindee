@@ -40,7 +40,7 @@ From Trung with love :green_heart:
 2. <u>Login (`/user/session`)</u>
     * Method: `POST`
     * Request body:
-        ```[json]
+        ```json
         {
             "email": "a@x.com",
             "pwd": "Password"
@@ -66,6 +66,7 @@ From Trung with love :green_heart:
                 "last-name": "Last",
                 "image-url": "http://url-to-image.com/image.jpg",
                 "years": 1,
+                "role": "Mentor job here",
                 "offers": ["Offer 1", "Offer 2"],
                 "concentration": ["Field 1", "Field 2"],
                 "organization": "Twiiter"
