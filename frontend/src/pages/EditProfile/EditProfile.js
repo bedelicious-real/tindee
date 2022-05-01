@@ -81,6 +81,7 @@ function EditProfile() {
     .then(data => {
       console.log(data);
       setProfile(data);
+      console.log(profile);
     })
   };
 
