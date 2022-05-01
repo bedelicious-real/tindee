@@ -30,8 +30,7 @@ function EditProfile() {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify(form),
+      }
     })
     .then(res => res.json())
     .then(data => {
