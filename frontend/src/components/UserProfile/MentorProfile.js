@@ -148,5 +148,5 @@ function MentorProfile({ onFinish, profile }) {
  
 export default MentorProfile;
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<MentorProfile/>, rootElement);
+// const rootElement = document.getElementById("root");
+// ReactDOM.render(<MentorProfile/>, rootElement);
